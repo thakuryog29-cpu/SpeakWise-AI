@@ -1,0 +1,21 @@
+SpeakWise AI - Security Cleanup
+================================
+
+Applied:
+- Hard-coded Flask secret removed.
+- Environment variable SPEAKWISE_SECRET_KEY supported.
+- Random fallback secret used for local development.
+- SESSION_COOKIE_HTTPONLY=True
+- SESSION_COOKIE_SAMESITE="Lax"
+- Optional SESSION_COOKIE_SECURE through SPEAKWISE_HTTPS=1
+- Flask debug mode disabled.
+- Registration input length limits.
+- Minimum 6-character password.
+- Login input length limits.
+- AI endpoint input length limits.
+- Raw AI exception messages are no longer returned to the browser.
+
+Important:
+This is a BCA project security cleanup, not a production security certification.
+For a public deployment, add CSRF protection, HTTPS, rate limiting, stronger password
+policy, secure secret management, and a production WSGI server.

@@ -1,0 +1,2927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interview Preparation - SpeakWise AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: #111827;
+            padding: 16px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: #dbeafe;
+            text-decoration: none;
+            margin-left: 16px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, .18);
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            line-height: 1.7;
+            color: #e0e7ff;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat {
+            background: rgba(255,255,255,.14);
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 27px;
+            margin-bottom: 5px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 25px rgba(15,23,42,.07);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .count-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .count-btn {
+            border: 1px solid #cbd5e1;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .count-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .primary-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 22px;
+        }
+
+        .primary-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-btn {
+            background: #e2e8f0;
+            color: #1e293b;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .danger-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .question-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .question-number {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .timer {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 9px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #2563eb;
+            width: 0%;
+            transition: .3s;
+        }
+
+        .question-text {
+            font-size: 24px;
+            line-height: 1.5;
+            color: #111827;
+            margin-bottom: 22px;
+        }
+
+        .record-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+
+        .record-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .mic-btn {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .mic-btn.recording {
+            background: #dc2626;
+        }
+
+        .answer-area {
+            min-height: 170px;
+            resize: vertical;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .score-card {
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .score-card strong {
+            display: block;
+            font-size: 30px;
+            color: #2563eb;
+            margin-top: 8px;
+        }
+
+        .feedback-box {
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8fafc;
+            margin-top: 15px;
+            line-height: 1.7;
+        }
+
+        .feedback-box h3 {
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .result-main {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .result-score {
+            font-size: 65px;
+            font-weight: bold;
+            color: #2563eb;
+            margin: 15px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 14px;
+        }
+
+        .result-item strong {
+            display: block;
+            font-size: 25px;
+            color: #2563eb;
+            margin-top: 7px;
+        }
+
+        .category-info {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .category-info div {
+            background: #f8fafc;
+            padding: 13px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        @media(max-width: 850px) {
+            .stats,
+            .feedback-grid,
+            .result-grid,
+            .category-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .question-text {
+                font-size: 20px;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .stats,
+            .feedback-grid,
+            .result-grid,
+            .category-info {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
+    
+
+        /* Mobile safety / responsive polish */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img, video, iframe, table {
+            max-width: 100%;
+        }
+
+        button, input, select, textarea {
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .container, .page, .content, .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .navbar, nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links, .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a, .nav-menu a {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+
+            h1 {
+                line-height: 1.2;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🎤 SpeakWise AI</div>
+
+    <div>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('grammar') }}">Grammar</a>
+        <a href="{{ url_for('speaking') }}">Speaking</a>
+        <a href="{{ url_for('mock_tests') }}">Mock Tests</a>
+        <a href="{{ url_for('grammar_correction') }}">AI Correction</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+        <h1>🎯 Interview Preparation</h1>
+
+        <p>
+            Practice HR, Technical, BCA, Fresher, Internship,
+            Behavioral, Communication, Project Viva and Career questions.
+        </p>
+
+        <div class="stats">
+            <div class="stat">
+                <strong id="totalQuestions">3100</strong>
+                Questions
+            </div>
+
+            <div class="stat">
+                <strong>9</strong>
+                Categories
+            </div>
+
+            <div class="stat">
+                <strong>3</strong>
+                Difficulty Levels
+            </div>
+
+            <div class="stat">
+                <strong>🎤</strong>
+                Voice Practice
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SETUP -->
+
+    <div class="card" id="setupSection">
+
+        <h2>⚙️ Start Interview Practice</h2>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Interview Category</label>
+
+                <select id="category">
+                    <option value="All">All Categories</option>
+                    <option value="HR Interview">HR Interview</option>
+                    <option value="Technical Interview">Technical Interview</option>
+                    <option value="BCA / Computer Science">BCA / Computer Science</option>
+                    <option value="Fresher Interview">Fresher Interview</option>
+                    <option value="Internship Interview">Internship Interview</option>
+                    <option value="Behavioral / Situational">Behavioral / Situational</option>
+                    <option value="Communication / English">Communication / English</option>
+                    <option value="Project / Viva">Project / Viva</option>
+                    <option value="Career / Workplace">Career / Workplace</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label>Difficulty</label>
+
+                <select id="difficulty">
+                    <option value="All">All Levels</option>
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label>Time Per Question</label>
+
+                <select id="timePerQuestion">
+                    <option value="60">60 Seconds</option>
+                    <option value="90">90 Seconds</option>
+                    <option value="120">120 Seconds</option>
+                    <option value="180">180 Seconds</option>
+                </select>
+            </div>
+
+        </div>
+
+
+        <br>
+
+        <label>Number of Questions</label>
+
+        <div class="count-buttons">
+
+            <button class="count-btn" data-count="5">5</button>
+            <button class="count-btn" data-count="10">10</button>
+            <button class="count-btn active" data-count="20">20</button>
+            <button class="count-btn" data-count="30">30</button>
+            <button class="count-btn" data-count="50">50</button>
+            <button class="count-btn" data-count="100">100</button>
+
+        </div>
+
+
+        <div class="category-info">
+
+            <div>👔 HR — <b>500</b></div>
+            <div>💻 Technical — <b>500</b></div>
+            <div>🎓 BCA / CS — <b>500</b></div>
+
+            <div>🌱 Fresher — <b>500</b></div>
+            <div>🏢 Internship — <b>200</b></div>
+            <div>🧠 Behavioral — <b>200</b></div>
+
+            <div>🗣️ Communication — <b>500</b></div>
+            <div>📊 Project / Viva — <b>100</b></div>
+            <div>🚀 Career / Workplace — <b>100</b></div>
+
+        </div>
+
+
+        <button class="primary-btn" onclick="startInterview()">
+            🚀 Start Interview
+        </button>
+
+    </div>
+
+
+    <!-- INTERVIEW -->
+
+    <div class="card hidden" id="interviewSection">
+
+        <div class="question-top">
+
+            <span class="question-number" id="questionNumber">
+                Question 1
+            </span>
+
+            <span class="timer" id="timer">
+                ⏱ 60
+            </span>
+
+        </div>
+
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+
+        <div id="questionCategory"
+             style="font-weight:bold;color:#2563eb;margin-bottom:12px;">
+        </div>
+
+
+        <div class="question-text" id="questionText">
+        </div>
+
+
+        <div class="record-box">
+
+            <div class="record-buttons">
+
+                <button class="mic-btn" id="micButton" onclick="startVoice()">
+                    🎤 Speak Answer
+                </button>
+
+                <button class="secondary-btn" onclick="stopVoice()">
+                    ⏹ Stop
+                </button>
+
+                <button class="secondary-btn" onclick="clearAnswer()">
+                    🗑 Clear
+                </button>
+
+            </div>
+
+
+            <p id="voiceStatus"
+               style="margin-bottom:10px;color:#64748b;">
+                Microphone is ready.
+            </p>
+
+
+            <textarea
+                id="answer"
+                class="answer-area"
+                placeholder="Type your answer here or use the microphone..."
+            ></textarea>
+
+        </div>
+
+
+        <div class="action-row">
+
+            <button class="danger-btn" onclick="exitInterview()">
+                Exit Interview
+            </button>
+
+            <button class="primary-btn"
+                    style="margin-top:0"
+                    onclick="submitAnswer()">
+                Submit Answer →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FEEDBACK -->
+
+    <div class="card hidden" id="feedbackSection">
+
+        <h2>📊 Answer Feedback</h2>
+
+        <div class="feedback-grid">
+
+            <div class="score-card">
+                Grammar
+                <strong id="grammarScore">0</strong>
+            </div>
+
+            <div class="score-card">
+                Vocabulary
+                <strong id="vocabularyScore">0</strong>
+            </div>
+
+            <div class="score-card">
+                Fluency
+                <strong id="fluencyScore">0</strong>
+            </div>
+
+            <div class="score-card">
+                Communication
+                <strong id="communicationScore">0</strong>
+            </div>
+
+            <div class="score-card">
+                Relevance
+                <strong id="relevanceScore">0</strong>
+            </div>
+
+            <div class="score-card">
+                Overall
+                <strong id="overallScore">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="feedback-box">
+            <h3>❌ Grammar Feedback</h3>
+            <p id="grammarFeedback"></p>
+        </div>
+
+
+        <div class="feedback-box">
+            <h3>📚 Vocabulary Feedback</h3>
+            <p id="vocabularyFeedback"></p>
+        </div>
+
+
+        <div class="feedback-box">
+            <h3>🗣️ Fluency Feedback</h3>
+            <p id="fluencyFeedback"></p>
+        </div>
+
+
+        <div class="feedback-box">
+            <h3>💬 Communication Feedback</h3>
+            <p id="communicationFeedback"></p>
+        </div>
+
+
+        <div class="feedback-box">
+            <h3>✨ Better Answer</h3>
+            <p id="betterAnswer"></p>
+        </div>
+
+
+        <div class="feedback-box">
+            <h3>🎯 Improvement Tips</h3>
+            <p id="tips"></p>
+        </div>
+
+
+        <div class="action-row">
+
+            <button class="secondary-btn" onclick="tryAgain()">
+                🔄 Try Again
+            </button>
+
+            <button class="primary-btn"
+                    style="margin-top:0"
+                    onclick="nextQuestion()">
+                Next Question →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div class="card hidden" id="resultSection">
+
+        <div class="result-main">
+
+            <h2>🏆 Interview Completed</h2>
+
+            <div class="result-score" id="finalScore">
+                0%
+            </div>
+
+            <p>
+                Great job! Review your performance and continue practicing.
+            </p>
+
+
+            <div class="result-grid">
+
+                <div class="result-item">
+                    Questions
+                    <strong id="resultTotal">0</strong>
+                </div>
+
+                <div class="result-item">
+                    Answered
+                    <strong id="resultAnswered">0</strong>
+                </div>
+
+                <div class="result-item">
+                    Best Score
+                    <strong id="resultBest">0%</strong>
+                </div>
+
+            </div>
+
+
+            <button class="primary-btn"
+                    onclick="restartInterview()">
+                🔄 Start New Interview
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SPEAKWISE AI
+   INTERVIEW QUESTION ENGINE
+   EXACT TOTAL = 3100
+========================================================= */
+
+
+/* =========================================================
+   CATEGORY TARGETS
+========================================================= */
+
+const TARGETS = {
+
+    "HR Interview": 500,
+
+    "Technical Interview": 500,
+
+    "BCA / Computer Science": 500,
+
+    "Fresher Interview": 500,
+
+    "Internship Interview": 200,
+
+    "Behavioral / Situational": 200,
+
+    "Communication / English": 500,
+
+    "Project / Viva": 100,
+
+    "Career / Workplace": 100
+
+};
+
+
+/* =========================================================
+   BASE QUESTION BANK
+========================================================= */
+
+const BASE = {
+
+
+"HR Interview": [
+
+"Tell me about yourself.",
+"Walk me through your background.",
+"Tell me about your educational background.",
+"Why did you choose BCA?",
+"Why did you choose computer science?",
+"Why do you want to join our company?",
+"What do you know about our company?",
+"What are your strengths?",
+"What are your weaknesses?",
+"Where do you see yourself in five years?",
+"Why should we hire you?",
+"What makes you different from other candidates?",
+"What motivates you?",
+"What demotivates you?",
+"How do you handle pressure?",
+"How do you handle deadlines?",
+"How do you prioritize your work?",
+"How do you manage multiple tasks?",
+"How do you handle criticism?",
+"How do you react to failure?",
+"Tell me about an achievement you are proud of.",
+"Tell me about a challenge you faced.",
+"Tell me about a mistake you made.",
+"What did you learn from your mistakes?",
+"Tell me about a time you solved a difficult problem.",
+"Tell me about a time you worked in a team.",
+"Tell me about a time you showed leadership.",
+"Tell me about a time you helped someone.",
+"Tell me about a time you disagreed with someone.",
+"How do you handle conflict?",
+"How do you communicate with teammates?",
+"What type of work environment do you prefer?",
+"Do you prefer working alone or in a team?",
+"How do you respond to negative feedback?",
+"What are your short-term goals?",
+"What are your long-term goals?",
+"Why should we trust you with responsibility?",
+"What are your career expectations?",
+"What are your salary expectations?",
+"Are you willing to relocate?",
+"Are you comfortable working in a team?",
+"Are you comfortable learning new technologies?",
+"How quickly can you learn something new?",
+"What is your biggest professional goal?",
+"What is your biggest personal achievement?",
+"What are three words that describe you?",
+"How would your friends describe you?",
+"How would your teachers describe you?",
+"What kind of manager do you prefer?",
+"How do you define success?",
+"What does professionalism mean to you?",
+"What does teamwork mean to you?",
+"What does leadership mean to you?",
+"What does responsibility mean to you?",
+"How do you stay motivated during difficult tasks?",
+"How do you manage stress?",
+"How do you maintain discipline?",
+"How do you handle an unexpected task?",
+"How do you deal with tight deadlines?",
+"How do you improve yourself?",
+"What skills are you currently developing?",
+"What is one skill you want to improve?",
+"What is your biggest learning experience?",
+"Why should we select you?",
+"Why are you interested in this position?",
+"What attracted you to this role?",
+"What do you expect from your first job?",
+"What are you looking for in a company?",
+"What kind of company culture do you prefer?",
+"How do you handle workplace disagreements?",
+"How do you handle an angry colleague?",
+"How do you handle an unhappy customer?",
+"What would you do if your manager disagreed with you?",
+"What would you do if you received an unfair task?",
+"How do you respond when you do not know something?",
+"Would you admit a mistake to your manager?",
+"How do you build professional relationships?",
+"How do you handle confidential information?",
+"What does integrity mean to you?",
+"Why is punctuality important?",
+"How do you manage your time?",
+"How do you prepare for an important meeting?",
+"How do you prepare for an interview?",
+"What makes a good employee?",
+"What makes a good manager?",
+"What makes a good team member?",
+"What is your ideal workplace?",
+"What is your definition of hard work?",
+"What is your definition of success?",
+"What is your definition of failure?",
+"What would you do if you were given a task without instructions?",
+"How do you handle repetitive work?",
+"How do you handle boring tasks?",
+"How do you stay focused?",
+"What do you do when you lose motivation?",
+"What are your expectations from this company?",
+"Why should we invest in your training?",
+"How long do you plan to stay with a company?",
+"What are your expectations from your manager?",
+"What do you expect from your teammates?"
+
+],
+
+
+"Technical Interview": [
+
+"What is a programming language?",
+"What is an algorithm?",
+"What is a data structure?",
+"What is an array?",
+"What is a linked list?",
+"What is a stack?",
+"What is a queue?",
+"What is a tree?",
+"What is a graph?",
+"What is a hash table?",
+"What is recursion?",
+"What is iteration?",
+"What is time complexity?",
+"What is space complexity?",
+"What is Big O notation?",
+"What is object-oriented programming?",
+"What are the principles of OOP?",
+"What is encapsulation?",
+"What is inheritance?",
+"What is polymorphism?",
+"What is abstraction?",
+"What is a class?",
+"What is an object?",
+"What is a constructor?",
+"What is method overloading?",
+"What is method overriding?",
+"What is an interface?",
+"What is an abstract class?",
+"What is exception handling?",
+"What is a database?",
+"What is SQL?",
+"What is a primary key?",
+"What is a foreign key?",
+"What is normalization?",
+"What is denormalization?",
+"What is a JOIN?",
+"What is an INNER JOIN?",
+"What is a LEFT JOIN?",
+"What is a RIGHT JOIN?",
+"What is a database index?",
+"What is a transaction?",
+"What is ACID?",
+"What is a relational database?",
+"What is NoSQL?",
+"What is an API?",
+"What is REST API?",
+"What is HTTP?",
+"What is HTTPS?",
+"What is JSON?",
+"What is XML?",
+"What is a web server?",
+"What is a client-server architecture?",
+"What is frontend development?",
+"What is backend development?",
+"What is full-stack development?",
+"What is HTML?",
+"What is CSS?",
+"What is JavaScript?",
+"What is DOM?",
+"What is responsive design?",
+"What is Flask?",
+"What is Django?",
+"What is Python?",
+"What is Java?",
+"What is C?",
+"What is C++?",
+"What is C#?",
+"What is PHP?",
+"What is Git?",
+"What is GitHub?",
+"What is version control?",
+"What is debugging?",
+"What is unit testing?",
+"What is integration testing?",
+"What is software testing?",
+"What is SDLC?",
+"What is Agile?",
+"What is Scrum?",
+"What is a sprint?",
+"What is cloud computing?",
+"What is virtualization?",
+"What is an operating system?",
+"What is a process?",
+"What is a thread?",
+"What is multitasking?",
+"What is memory management?",
+"What is a deadlock?",
+"What is a race condition?",
+"What is cybersecurity?",
+"What is encryption?",
+"What is authentication?",
+"What is authorization?",
+"What is hashing?",
+"What is a firewall?",
+"What is phishing?",
+"What is SQL injection?",
+"What is XSS?",
+"What is session management?",
+"What is a cookie?",
+"What is a cache?",
+"What is DNS?",
+"What is an IP address?",
+"What is TCP?",
+"What is UDP?",
+"What is a port?",
+"What is a network protocol?",
+"What is machine learning?",
+"What is artificial intelligence?",
+"What is natural language processing?",
+"What is an AI model?",
+"What is a database query?",
+"What is CRUD?",
+"What is MVC architecture?",
+"What is middleware?",
+"What is routing?",
+"What is an endpoint?",
+"What is a software bug?",
+"What is deployment?",
+"What is a production environment?"
+
+],
+
+
+"BCA / Computer Science": [
+
+"What subjects did you study during BCA?",
+"What did you learn about computer fundamentals?",
+"Explain the difference between hardware and software.",
+"What is an operating system?",
+"What are the functions of an operating system?",
+"What is computer memory?",
+"What is RAM?",
+"What is ROM?",
+"What is cache memory?",
+"What is a CPU?",
+"What is a compiler?",
+"What is an interpreter?",
+"What is an assembler?",
+"What is a programming language?",
+"What is source code?",
+"What is machine code?",
+"What is binary?",
+"What is a bit?",
+"What is a byte?",
+"What is a database?",
+"What is DBMS?",
+"What is RDBMS?",
+"What is SQL?",
+"What is a table?",
+"What is a record?",
+"What is a field?",
+"What is a primary key?",
+"What is a foreign key?",
+"What is normalization?",
+"What is ER diagram?",
+"What is a relationship in DBMS?",
+"What is networking?",
+"What is LAN?",
+"What is MAN?",
+"What is WAN?",
+"What is the Internet?",
+"What is an IP address?",
+"What is a MAC address?",
+"What is DNS?",
+"What is a router?",
+"What is a switch?",
+"What is a modem?",
+"What is HTTP?",
+"What is HTTPS?",
+"What is a web browser?",
+"What is a search engine?",
+"What is HTML?",
+"What is CSS?",
+"What is JavaScript?",
+"What is Python?",
+"What is Java?",
+"What is C programming?",
+"What is an algorithm?",
+"What is a flowchart?",
+"What is a decision statement?",
+"What is a loop?",
+"What is an array?",
+"What is a function?",
+"What is a variable?",
+"What is a constant?",
+"What is a pointer?",
+"What is a string?",
+"What is a structure?",
+"What is a class?",
+"What is an object?",
+"What is inheritance?",
+"What is polymorphism?",
+"What is encapsulation?",
+"What is abstraction?",
+"What is exception handling?",
+"What is software engineering?",
+"What is SDLC?",
+"What is Agile methodology?",
+"What is testing?",
+"What is debugging?",
+"What is a compiler error?",
+"What is a runtime error?",
+"What is a logical error?",
+"What is cybersecurity?",
+"What is malware?",
+"What is a computer virus?",
+"What is phishing?",
+"What is a firewall?",
+"What is encryption?",
+"What is authentication?",
+"What is cloud computing?",
+"What is virtualization?",
+"What is artificial intelligence?",
+"What is machine learning?",
+"What is an expert system?",
+"What is a search algorithm?",
+"What is BFS?",
+"What is DFS?",
+"What is a sorting algorithm?",
+"What is binary search?",
+"What is linear search?",
+"What is recursion?",
+"What is data structure?",
+"What is stack?",
+"What is queue?",
+"What is linked list?",
+"What is tree?",
+"What is graph?",
+"What is Git?",
+"What is version control?",
+"What is software maintenance?",
+"What is project management?",
+"What is an information system?",
+"What is e-commerce?",
+"What is digital payment?",
+"What is digital signature?",
+"What is a web application?",
+"What is a client-server model?"
+
+],
+
+
+"Fresher Interview": [
+
+"Tell me about yourself as a fresher.",
+"Why should we hire a fresher?",
+"What can you contribute as a fresher?",
+"What are your strengths as a fresher?",
+"What are your weaknesses?",
+"Why did you choose BCA?",
+"What did you learn during college?",
+"What was your favorite subject?",
+"What was your least favorite subject?",
+"Which programming language do you know best?",
+"Which technology are you learning currently?",
+"What projects have you completed?",
+"Explain your final-year project.",
+"What was your role in your project?",
+"What challenges did you face during your project?",
+"What did you learn from your project?",
+"How did you test your project?",
+"How did you solve project errors?",
+"How do you learn new technology?",
+"How do you improve your coding skills?",
+"How do you practice programming?",
+"What do you do when you cannot solve a coding problem?",
+"How do you approach a new problem?",
+"How do you handle deadlines?",
+"How do you handle pressure?",
+"Are you comfortable working in a team?",
+"Are you comfortable working independently?",
+"How do you communicate with teammates?",
+"How do you handle criticism?",
+"How do you respond to failure?",
+"What are your short-term goals?",
+"What are your long-term goals?",
+"Where do you see yourself in five years?",
+"Why do you want this job?",
+"Why do you want to work in IT?",
+"What type of job are you looking for?",
+"What are your salary expectations?",
+"Are you willing to relocate?",
+"Are you willing to learn new technologies?",
+"Are you comfortable working from office?",
+"Are you comfortable with deadlines?",
+"How do you manage your time?",
+"How do you prioritize tasks?",
+"Tell me about an achievement.",
+"Tell me about a challenge.",
+"Tell me about a mistake.",
+"Tell me about a time you worked in a team.",
+"Tell me about a time you solved a problem.",
+"How would your teachers describe you?",
+"How would your classmates describe you?",
+"What makes you different from other freshers?",
+"What motivates you?",
+"What are your career goals?",
+"What skills do you want to improve?",
+"What is your biggest strength?",
+"What is your biggest learning experience?",
+"What does success mean to you?",
+"What does teamwork mean to you?",
+"What does professionalism mean to you?",
+"How do you prepare for an interview?",
+"What do you expect from your first company?",
+"What kind of manager do you prefer?",
+"What kind of workplace do you prefer?",
+"How do you handle an unknown task?",
+"How do you respond when you do not know an answer?",
+"Would you ask for help when necessary?",
+"How do you handle feedback?",
+"How do you maintain discipline?",
+"How do you stay motivated?",
+"What makes a good employee?",
+"What makes a good team member?",
+"Why should we invest in your training?",
+"What are your expectations from us?",
+"What do you expect to learn from this job?",
+"How soon can you join?",
+"Are you comfortable with training?",
+"How do you handle repetitive work?",
+"How do you stay focused?",
+"What do you do in your free time?",
+"What are your hobbies?",
+"What is your biggest achievement in college?",
+"What extracurricular activities did you participate in?",
+"How did college prepare you for employment?",
+"What did you learn outside academics?",
+"What technical skill are you most confident about?",
+"What skill are you least confident about?",
+"How are you improving your weaknesses?",
+"How do you keep yourself updated with technology?",
+"What technology trend interests you?",
+"What type of projects do you enjoy?",
+"Would you prefer development or testing?",
+"Would you prefer frontend or backend?",
+"Do you prefer individual or team projects?",
+"How do you handle project disagreements?",
+"How do you present your ideas?",
+"How do you explain technical concepts to beginners?",
+"How do you handle a tight deadline?",
+"How do you handle multiple assignments?",
+"How do you balance technical and communication skills?"
+
+],
+
+
+"Internship Interview": [
+
+"Why do you want this internship?",
+"What do you expect to learn from this internship?",
+"Why should we select you as an intern?",
+"What skills can you contribute?",
+"What technologies do you know?",
+"What technology do you want to learn?",
+"Tell me about your college projects.",
+"Tell me about your technical skills.",
+"How do you learn new technologies?",
+"How do you handle feedback?",
+"How do you handle deadlines?",
+"How do you work in a team?",
+"How do you communicate with mentors?",
+"What would you do if you made a mistake?",
+"What would you do if you did not understand a task?",
+"How would you ask for help?",
+"What are your internship goals?",
+"What are your career goals?",
+"How much time can you dedicate to the internship?",
+"Are you comfortable learning independently?",
+"Are you comfortable working under a mentor?",
+"What programming languages do you know?",
+"What development tools have you used?",
+"What databases have you worked with?",
+"What projects have you built?",
+"What was your role in your project?",
+"How did you solve a technical problem?",
+"How did you debug your project?",
+"How do you test your code?",
+"What is your approach to learning?",
+"How do you manage your college and internship work?",
+"How do you prioritize tasks?",
+"What do you expect from your mentor?",
+"What do you expect from the company?",
+"What would make this internship successful for you?",
+"Would you be comfortable working remotely?",
+"Would you be comfortable working from office?",
+"How do you handle unfamiliar technology?",
+"How do you document your work?",
+"How do you report your progress?",
+"How do you handle changing requirements?",
+"How do you handle constructive criticism?",
+"How do you contribute during team meetings?",
+"How do you present your work?",
+"What is your biggest technical strength?",
+"What is your biggest technical weakness?",
+"How are you improving your technical skills?",
+"Why are you interested in this industry?",
+"What do you know about our organization?",
+"What makes you suitable for this internship?"
+
+],
+
+
+"Behavioral / Situational": [
+
+"Tell me about a time you solved a difficult problem.",
+"Tell me about a time you worked under pressure.",
+"Tell me about a time you made a mistake.",
+"Tell me about a time you learned from failure.",
+"Tell me about a time you helped a teammate.",
+"Tell me about a time you handled conflict.",
+"Tell me about a time you showed leadership.",
+"Tell me about a time you missed a deadline.",
+"Tell me about a time you managed multiple tasks.",
+"Tell me about a time you received criticism.",
+"Tell me about a time you gave feedback.",
+"Tell me about a time you adapted to change.",
+"Tell me about a time you learned something quickly.",
+"Tell me about a time you solved a disagreement.",
+"Tell me about a time you had limited resources.",
+"Tell me about a time you had to make a difficult decision.",
+"Tell me about a time you worked with a difficult person.",
+"Tell me about a time you took responsibility.",
+"Tell me about a time you showed initiative.",
+"Tell me about a time you improved a process.",
+"What would you do if your teammate did not complete their work?",
+"What would you do if you disagreed with your manager?",
+"What would you do if you received two urgent tasks?",
+"What would you do if you made an important mistake?",
+"What would you do if a customer became angry?",
+"What would you do if you did not understand an assignment?",
+"What would you do if you had a deadline tomorrow?",
+"What would you do if your team had a disagreement?",
+"What would you do if your idea was rejected?",
+"What would you do if your teammate took credit for your work?",
+"What would you do if you noticed an error in production?",
+"What would you do if you were given unclear instructions?",
+"What would you do if you had too much work?",
+"What would you do if you had nothing to do?",
+"What would you do if a colleague asked for help during your deadline?",
+"What would you do if your manager gave negative feedback?",
+"What would you do if requirements changed suddenly?",
+"What would you do if you failed an important task?",
+"What would you do if you discovered confidential information?",
+"What would you do if you disagreed with a team decision?"
+
+],
+
+
+"Communication / English": [
+
+"Introduce yourself in English.",
+"Explain your education in English.",
+"Describe your strengths.",
+"Describe your weaknesses.",
+"Explain your career goal.",
+"Explain why you chose BCA.",
+"Describe your final-year project.",
+"Explain your favorite subject.",
+"Describe your hometown.",
+"Describe your daily routine.",
+"Describe your hobbies.",
+"Talk about your favorite technology.",
+"Explain a difficult concept in simple English.",
+"Explain a technical project to a non-technical person.",
+"Describe a challenge you solved.",
+"Describe a successful team experience.",
+"Talk about a failure and what you learned.",
+"Explain why communication is important.",
+"Describe your ideal workplace.",
+"Explain your future plans.",
+"Talk about your favorite book.",
+"Talk about your favorite movie.",
+"Talk about a person who inspires you.",
+"Describe a memorable college experience.",
+"Explain how you manage stress.",
+"Explain how you manage time.",
+"Describe your learning style.",
+"Explain how you learn new skills.",
+"Describe your strongest technical skill.",
+"Explain a programming concept.",
+"Explain what a database is.",
+"Explain what an API is.",
+"Explain what cloud computing means.",
+"Explain cybersecurity to a beginner.",
+"Describe a software project.",
+"Give a short professional introduction.",
+"Explain why you want this job.",
+"Explain why you want to join an IT company.",
+"Describe your strengths as a fresher.",
+"Describe your career ambition.",
+"Explain how you handle criticism.",
+"Explain how you handle pressure.",
+"Describe a time you worked in a team.",
+"Explain how you solve problems.",
+"Describe your approach to learning.",
+"Talk about your favorite subject in college.",
+"Explain what teamwork means.",
+"Explain what leadership means.",
+"Explain what professionalism means.",
+"Give an example of good communication.",
+"Explain how you prepare for an interview."
+
+],
+
+
+"Project / Viva": [
+
+"Explain your final-year project.",
+"What problem does your project solve?",
+"Why did you choose this project?",
+"What technologies did you use?",
+"Why did you choose these technologies?",
+"What is the main objective of your project?",
+"What are the main features?",
+"Explain your project architecture.",
+"Explain your database design.",
+"What tables are used in your project?",
+"What is the role of the backend?",
+"What is the role of the frontend?",
+"How does user authentication work?",
+"How did you handle passwords?",
+"How did you test your project?",
+"What problems did you face?",
+"How did you fix project errors?",
+"What improvements can be made?",
+"What are the limitations of your project?",
+"What is the future scope?",
+"What was your individual contribution?",
+"How did you divide work?",
+"What did you learn from the project?",
+"How is your project different from existing systems?",
+"How would you deploy your project?"
+
+],
+
+
+"Career / Workplace": [
+
+"What are your career goals?",
+"Where do you see yourself in five years?",
+"What type of company do you want to work for?",
+"What type of role interests you?",
+"Do you prefer development or testing?",
+"Do you prefer frontend or backend?",
+"Do you want to become a full-stack developer?",
+"Which technology do you want to master?",
+"How do you plan to improve your career?",
+"What does career growth mean to you?",
+"What does professional success mean to you?",
+"What kind of workplace do you prefer?",
+"How do you handle workplace pressure?",
+"How do you maintain work-life balance?",
+"How do you handle professional disagreements?",
+"How do you build workplace relationships?",
+"How do you communicate with managers?",
+"How do you communicate with clients?",
+"How do you handle workplace feedback?",
+"How do you handle changing responsibilities?",
+"How do you keep your skills updated?",
+"How do you follow technology trends?",
+"Would you relocate for a good opportunity?",
+"Would you work in a different role if required?",
+"How do you handle a career setback?"
+
+]
+
+};
+
+
+/* =========================================================
+   NATURAL QUESTION VARIATIONS
+========================================================= */
+
+const VARIATIONS = [
+
+"Explain your answer with a practical example.",
+"Explain this in simple words.",
+"How would you handle this in a real workplace?",
+"Give an example from your college or project experience.",
+"What is your approach to this situation?",
+"Why is this important?",
+"What are the advantages of your approach?",
+"What challenges can occur in this situation?",
+"How would you improve your approach?",
+"What would you do if the situation became more difficult?",
+"How would you explain this to a beginner?",
+"How would you apply this knowledge in a real project?",
+"What common mistakes should a beginner avoid?",
+"How would you solve this problem step by step?",
+"What did you learn from a similar situation?",
+"How would you respond if your first approach failed?",
+"What factors would you consider before making a decision?",
+"How would you communicate your answer to a team?",
+"How would you justify your decision?",
+"What would be your first step?",
+"What would be your next step?",
+"How would you deal with an unexpected problem?",
+"How would you measure whether your approach worked?",
+"What alternative approach could you take?",
+"How would you handle this under time pressure?",
+"How would you handle this as a fresher?",
+"How would you handle this as a team member?",
+"How would you handle this as a team leader?",
+"What skills are required for this situation?",
+"What lesson can be learned from this?"
+];
+
+
+/* =========================================================
+   DIFFICULTY
+========================================================= */
+
+function getDifficulty(index) {
+
+    if (index % 3 === 0) {
+        return "Easy";
+    }
+
+    if (index % 3 === 1) {
+        return "Medium";
+    }
+
+    return "Hard";
+}
+
+
+/* =========================================================
+   QUESTION GENERATOR
+   EXACT CATEGORY TARGETS
+========================================================= */
+
+function generateCategoryQuestions(category, target) {
+
+    const base = BASE[category] || [];
+
+    const result = [];
+
+    const used = new Set();
+
+    let counter = 0;
+
+    /*
+       First use original questions.
+    */
+
+    for (let i = 0; i < base.length && result.length < target; i++) {
+
+        const q = base[i].trim();
+
+        if (!used.has(q)) {
+
+            used.add(q);
+
+            result.push({
+                id: category + "_" + result.length,
+                category: category,
+                question: q,
+                difficulty: getDifficulty(result.length)
+            });
+        }
+    }
+
+
+    /*
+       Then create natural variations.
+    */
+
+    let round = 0;
+
+    while (result.length < target) {
+
+        for (let i = 0; i < base.length && result.length < target; i++) {
+
+            for (let v = 0; v < VARIATIONS.length && result.length < target; v++) {
+
+                const original = base[i];
+
+                let question;
+
+                if (round % 2 === 0) {
+
+                    question =
+                        original.replace(/\?$/, "") +
+                        " " +
+                        VARIATIONS[v];
+
+                } else {
+
+                    question =
+                        VARIATIONS[v].replace(/\?$/, "") +
+                        " — " +
+                        original;
+
+                }
+
+
+                /*
+                   Add a natural context when necessary.
+                */
+
+                if (round >= 2) {
+
+                    const contexts = [
+                        "during an interview",
+                        "in a real project",
+                        "in your first job",
+                        "as a BCA graduate",
+                        "while working with a team",
+                        "during a tight deadline",
+                        "in a professional environment",
+                        "while working on a software project"
+                    ];
+
+                    question =
+                        question.replace(/\?$/, "") +
+                        " " +
+                        contexts[(round + i + v) % contexts.length] +
+                        "?";
+                }
+
+
+                if (!question.endsWith("?")) {
+                    question += "?";
+                }
+
+
+                if (!used.has(question)) {
+
+                    used.add(question);
+
+                    result.push({
+                        id: category + "_" + result.length,
+                        category: category,
+                        question: question,
+                        difficulty: getDifficulty(result.length)
+                    });
+                }
+            }
+        }
+
+        round++;
+
+        /*
+           Safety fallback.
+        */
+
+        if (round > 100) {
+            break;
+        }
+    }
+
+
+    return result.slice(0, target);
+}
+
+
+/* =========================================================
+   BUILD COMPLETE 3100 QUESTION BANK
+========================================================= */
+
+let INTERVIEW_QUESTIONS = [];
+
+
+function buildQuestionBank() {
+
+    INTERVIEW_QUESTIONS = [];
+
+    Object.keys(TARGETS).forEach(category => {
+
+        const questions =
+            generateCategoryQuestions(
+                category,
+                TARGETS[category]
+            );
+
+        INTERVIEW_QUESTIONS.push(...questions);
+    });
+
+
+    /*
+       Shuffle complete bank.
+    */
+
+    INTERVIEW_QUESTIONS.sort(() => Math.random() - 0.5);
+
+
+    console.log(
+        "Interview Questions Generated:",
+        INTERVIEW_QUESTIONS.length
+    );
+
+
+    /*
+       Category count verification.
+    */
+
+    const counts = {};
+
+    INTERVIEW_QUESTIONS.forEach(q => {
+
+        counts[q.category] =
+            (counts[q.category] || 0) + 1;
+    });
+
+
+    console.table(counts);
+}
+
+
+/* Build on page load */
+
+buildQuestionBank();
+
+
+/* =========================================================
+   INTERVIEW VARIABLES
+========================================================= */
+
+let selectedCount = 20;
+
+let currentQuestions = [];
+
+let currentIndex = 0;
+
+let timerValue = 60;
+
+let timerInterval = null;
+
+let recognition = null;
+
+let isRecording = false;
+
+let scores = [];
+
+let currentScore = null;
+
+
+/* =========================================================
+   COUNT BUTTONS
+========================================================= */
+
+document.querySelectorAll(".count-btn").forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        document
+            .querySelectorAll(".count-btn")
+            .forEach(btn => btn.classList.remove("active"));
+
+        this.classList.add("active");
+
+        selectedCount =
+            parseInt(this.dataset.count);
+    });
+});
+
+
+/* =========================================================
+   START INTERVIEW
+========================================================= */
+
+function startInterview() {
+
+    const category =
+        document.getElementById("category").value;
+
+    const difficulty =
+        document.getElementById("difficulty").value;
+
+
+    let pool =
+        INTERVIEW_QUESTIONS.filter(q => {
+
+            const categoryMatch =
+                category === "All" ||
+                q.category === category;
+
+            const difficultyMatch =
+                difficulty === "All" ||
+                q.difficulty === difficulty;
+
+            return categoryMatch && difficultyMatch;
+        });
+
+
+    /*
+       If selected filters contain fewer questions,
+       use available questions.
+    */
+
+    if (pool.length === 0) {
+
+        alert("No questions available for this selection.");
+
+        return;
+    }
+
+
+    pool.sort(() => Math.random() - 0.5);
+
+    currentQuestions =
+        pool.slice(
+            0,
+            Math.min(selectedCount, pool.length)
+        );
+
+
+    currentIndex = 0;
+
+    scores = [];
+
+
+    document
+        .getElementById("setupSection")
+        .classList.add("hidden");
+
+    document
+        .getElementById("feedbackSection")
+        .classList.add("hidden");
+
+    document
+        .getElementById("resultSection")
+        .classList.add("hidden");
+
+    document
+        .getElementById("interviewSection")
+        .classList.remove("hidden");
+
+
+    showQuestion();
+}
+
+
+/* =========================================================
+   SHOW QUESTION
+========================================================= */
+
+function showQuestion() {
+
+    if (currentIndex >= currentQuestions.length) {
+
+        finishInterview();
+
+        return;
+    }
+
+
+    const q =
+        currentQuestions[currentIndex];
+
+
+    document.getElementById("questionNumber").textContent =
+        "Question " +
+        (currentIndex + 1) +
+        " / " +
+        currentQuestions.length;
+
+
+    document.getElementById("questionCategory").textContent =
+        "📂 " +
+        q.category +
+        " • " +
+        q.difficulty;
+
+
+    document.getElementById("questionText").textContent =
+        q.question;
+
+
+    document.getElementById("answer").value = "";
+
+
+    document.getElementById("feedbackSection")
+        .classList.add("hidden");
+
+
+    const percentage =
+        ((currentIndex) /
+        currentQuestions.length) * 100;
+
+
+    document.getElementById("progressBar")
+        .style.width =
+        percentage + "%";
+
+
+    startTimer();
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    timerValue =
+        parseInt(
+            document.getElementById("timePerQuestion").value
+        );
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            timerValue--;
+
+            updateTimer();
+
+
+            if (timerValue <= 0) {
+
+                clearInterval(timerInterval);
+
+                submitAnswer();
+            }
+
+        }, 1000);
+}
+
+
+function updateTimer() {
+
+    document.getElementById("timer").textContent =
+        "⏱ " +
+        timerValue +
+        " sec";
+
+
+    if (timerValue <= 10) {
+
+        document.getElementById("timer")
+            .style.background = "#fee2e2";
+
+        document.getElementById("timer")
+            .style.color = "#dc2626";
+
+    } else {
+
+        document.getElementById("timer")
+            .style.background = "#fef2f2";
+
+        document.getElementById("timer")
+            .style.color = "#dc2626";
+    }
+}
+
+
+/* =========================================================
+   VOICE RECOGNITION
+========================================================= */
+
+function setupRecognition() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        return null;
+    }
+
+
+    const rec =
+        new SpeechRecognition();
+
+
+    rec.continuous = true;
+
+    rec.interimResults = true;
+
+    rec.lang = "en-US";
+
+
+    rec.onresult = function(event) {
+
+        let finalText = "";
+
+        for (
+            let i = event.resultIndex;
+            i < event.results.length;
+            i++
+        ) {
+
+            finalText +=
+                event.results[i][0].transcript;
+        }
+
+
+        const textarea =
+            document.getElementById("answer");
+
+
+        textarea.value =
+            textarea.value +
+            " " +
+            finalText;
+
+    };
+
+
+    rec.onend = function() {
+
+        if (isRecording) {
+
+            try {
+                rec.start();
+            } catch(e) {}
+        }
+    };
+
+
+    return rec;
+}
+
+
+function startVoice() {
+
+    if (!recognition) {
+
+        recognition =
+            setupRecognition();
+    }
+
+
+    if (!recognition) {
+
+        alert(
+            "Your browser does not support speech recognition. Please use Google Chrome."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        recognition.start();
+
+        isRecording = true;
+
+
+        document
+            .getElementById("micButton")
+            .classList.add("recording");
+
+
+        document
+            .getElementById("micButton")
+            .textContent =
+            "🔴 Recording...";
+
+
+        document
+            .getElementById("voiceStatus")
+            .textContent =
+            "Listening... Speak clearly in English.";
+
+    } catch(e) {
+
+        console.log(e);
+    }
+}
+
+
+function stopVoice() {
+
+    if (recognition) {
+
+        isRecording = false;
+
+        try {
+            recognition.stop();
+        } catch(e) {}
+    }
+
+
+    document
+        .getElementById("micButton")
+        .classList.remove("recording");
+
+
+    document
+        .getElementById("micButton")
+        .textContent =
+        "🎤 Speak Answer";
+
+
+    document
+        .getElementById("voiceStatus")
+        .textContent =
+        "Recording stopped.";
+}
+
+
+function clearAnswer() {
+
+    document.getElementById("answer").value = "";
+
+}
+
+
+/* =========================================================
+   TEXT ANALYSIS
+========================================================= */
+
+function analyzeAnswer(text, question) {
+
+    const clean =
+        text
+        .trim()
+        .replace(/\s+/g, " ");
+
+
+    const words =
+        clean
+        ? clean.split(/\s+/)
+        : [];
+
+
+    const wordCount =
+        words.length;
+
+
+    /*
+       Grammar score
+    */
+
+    let grammar = 100;
+
+
+    const grammarRules = [
+
+        /\bi am agree\b/i,
+
+        /\bhe go\b/i,
+
+        /\bshe go\b/i,
+
+        /\bi has\b/i,
+
+        /\bhe have\b/i,
+
+        /\bshe have\b/i,
+
+        /\bthey was\b/i,
+
+        /\bwe was\b/i,
+
+        /\byesterday i go\b/i,
+
+        /\bi didn't went\b/i,
+
+        /\bmore better\b/i,
+
+        /\bdiscuss about\b/i,
+
+        /\brevert back\b/i,
+
+        /\bcan able to\b/i,
+
+        /\bmyself\b/i
+
+    ];
+
+
+    let grammarMistakes = 0;
+
+
+    grammarRules.forEach(rule => {
+
+        if (rule.test(clean)) {
+
+            grammarMistakes++;
+        }
+    });
+
+
+    grammar -=
+        grammarMistakes * 8;
+
+
+    if (wordCount < 8) {
+
+        grammar -= 10;
+    }
+
+
+    grammar =
+        Math.max(0, Math.min(100, grammar));
+
+
+    /*
+       Vocabulary
+    */
+
+    const uniqueWords =
+        new Set(
+            words.map(
+                word =>
+                word
+                .toLowerCase()
+                .replace(/[^a-z]/g, "")
+            )
+        );
+
+
+    let vocabulary =
+        wordCount === 0
+        ? 0
+        : Math.min(
+            100,
+            45 +
+            uniqueWords.size * 2
+        );
+
+
+    if (wordCount < 12) {
+
+        vocabulary -= 10;
+    }
+
+
+    vocabulary =
+        Math.max(
+            0,
+            Math.min(100, vocabulary)
+        );
+
+
+    /*
+       Fluency
+    */
+
+    const fillers = [
+
+        "um",
+        "uh",
+        "like",
+        "you know",
+        "actually",
+        "basically",
+        "means",
+        "so so"
+
+    ];
+
+
+    let fillerCount = 0;
+
+
+    fillers.forEach(word => {
+
+        const matches =
+            clean
+            .toLowerCase()
+            .split(word)
+            .length - 1;
+
+        fillerCount += matches;
+    });
+
+
+    let fluency =
+        Math.min(
+            100,
+            50 + Math.min(wordCount, 50)
+        );
+
+
+    fluency -=
+        fillerCount * 5;
+
+
+    if (wordCount < 10) {
+
+        fluency -= 15;
+    }
+
+
+    fluency =
+        Math.max(
+            0,
+            Math.min(100, fluency)
+        );
+
+
+    /*
+       Communication
+    */
+
+    let communication = 45;
+
+
+    if (wordCount >= 15) {
+
+        communication += 20;
+    }
+
+
+    if (wordCount >= 30) {
+
+        communication += 15;
+    }
+
+
+    if (/[.!?]/.test(clean)) {
+
+        communication += 5;
+    }
+
+
+    if (
+        /\bbecause\b|\btherefore\b|\bhowever\b|\bfor example\b/i
+        .test(clean)
+    ) {
+
+        communication += 10;
+    }
+
+
+    communication =
+        Math.max(
+            0,
+            Math.min(100, communication)
+        );
+
+
+    /*
+       Relevance
+    */
+
+    let relevance = 50;
+
+
+    const questionWords =
+        question
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(word => word.length > 4);
+
+
+    const answerLower =
+        clean.toLowerCase();
+
+
+    let matched = 0;
+
+
+    questionWords.forEach(word => {
+
+        const cleanWord =
+            word.replace(/[^a-z]/g, "");
+
+
+        if (
+            cleanWord.length > 4 &&
+            answerLower.includes(cleanWord)
+        ) {
+
+            matched++;
+        }
+    });
+
+
+    if (questionWords.length > 0) {
+
+        relevance +=
+            Math.min(
+                40,
+                matched * 8
+            );
+    }
+
+
+    if (wordCount >= 20) {
+
+        relevance += 5;
+    }
+
+
+    relevance =
+        Math.max(
+            0,
+            Math.min(100, relevance)
+        );
+
+
+    /*
+       Overall
+    */
+
+    const overall =
+        Math.round(
+            (
+                grammar +
+                vocabulary +
+                fluency +
+                communication +
+                relevance
+            ) / 5
+        );
+
+
+    /*
+       Better answer
+    */
+
+    let better;
+
+
+    if (wordCount < 10) {
+
+        better =
+            "Try giving a structured answer with a clear beginning, "
+            + "one or two specific examples, and a short conclusion. "
+            + "Avoid one-line answers.";
+
+    } else {
+
+        better =
+            "A stronger answer would be structured clearly: "
+            + "start with the main point, explain your reasoning, "
+            + "give a practical example, and finish with what you learned "
+            + "or what result you achieved.";
+    }
+
+
+    /*
+       Grammar feedback
+    */
+
+    let grammarFeedback;
+
+
+    if (grammarMistakes === 0) {
+
+        grammarFeedback =
+            "No major grammar pattern was detected. Keep using complete sentences and consistent tenses.";
+
+    } else {
+
+        grammarFeedback =
+            grammarMistakes +
+            " possible grammar issue(s) detected. "
+            + "Pay attention to subject-verb agreement, tense consistency and sentence structure.";
+    }
+
+
+    /*
+       Vocabulary feedback
+    */
+
+    let vocabularyFeedback;
+
+
+    if (uniqueWords.size >= 20) {
+
+        vocabularyFeedback =
+            "Good vocabulary variety. Try using more professional and role-specific words where appropriate.";
+
+    } else {
+
+        vocabularyFeedback =
+            "Try avoiding repeated words. Add specific technical, professional or descriptive vocabulary.";
+    }
+
+
+    /*
+       Fluency feedback
+    */
+
+    let fluencyFeedback;
+
+
+    if (fillerCount > 3) {
+
+        fluencyFeedback =
+            "You may be using several filler words. Pause for a moment instead of saying 'um', 'like' or 'you know'.";
+
+    } else {
+
+        fluencyFeedback =
+            "Your response has a reasonable flow. Continue practicing complete answers without unnecessary pauses.";
+    }
+
+
+    /*
+       Communication feedback
+    */
+
+    const communicationFeedback =
+        communication >= 75
+        ? "Your answer has a clear communication structure. Keep your introduction, explanation and conclusion connected."
+        : "Try to organize your answer into three parts: main point, explanation/example and conclusion.";
+
+
+    const tips = [
+
+        wordCount < 15
+            ? "Give slightly longer and more complete answers."
+            : "Keep your answers focused and relevant.",
+
+        fillerCount > 2
+            ? "Reduce filler words."
+            : "Continue speaking naturally.",
+
+        "Use real examples from your college, projects or practical experience.",
+
+        "Maintain confident and professional language.",
+
+        "Practice speaking your answer aloud before interviews."
+
+    ];
+
+
+    return {
+
+        grammar,
+
+        vocabulary,
+
+        fluency,
+
+        communication,
+
+        relevance,
+
+        overall,
+
+        grammarFeedback,
+
+        vocabularyFeedback,
+
+        fluencyFeedback,
+
+        communicationFeedback,
+
+        better,
+
+        tips: tips.join(" ")
+
+    };
+}
+
+
+/* =========================================================
+   SUBMIT ANSWER
+========================================================= */
+
+function submitAnswer() {
+
+    clearInterval(timerInterval);
+
+    stopVoice();
+
+
+    const answer =
+        document
+        .getElementById("answer")
+        .value
+        .trim();
+
+
+    if (!answer) {
+
+        alert(
+            "Please type or speak your answer first."
+        );
+
+        startTimer();
+
+        return;
+    }
+
+
+    const question =
+        currentQuestions[currentIndex];
+
+
+    currentScore =
+        analyzeAnswer(
+            answer,
+            question.question
+        );
+
+
+    scores.push(currentScore);
+
+
+    document.getElementById("grammarScore")
+        .textContent =
+        currentScore.grammar;
+
+
+    document.getElementById("vocabularyScore")
+        .textContent =
+        currentScore.vocabulary;
+
+
+    document.getElementById("fluencyScore")
+        .textContent =
+        currentScore.fluency;
+
+
+    document.getElementById("communicationScore")
+        .textContent =
+        currentScore.communication;
+
+
+    document.getElementById("relevanceScore")
+        .textContent =
+        currentScore.relevance;
+
+
+    document.getElementById("overallScore")
+        .textContent =
+        currentScore.overall;
+
+
+    document.getElementById("grammarFeedback")
+        .textContent =
+        currentScore.grammarFeedback;
+
+
+    document.getElementById("vocabularyFeedback")
+        .textContent =
+        currentScore.vocabularyFeedback;
+
+
+    document.getElementById("fluencyFeedback")
+        .textContent =
+        currentScore.fluencyFeedback;
+
+
+    document.getElementById("communicationFeedback")
+        .textContent =
+        currentScore.communicationFeedback;
+
+
+    document.getElementById("betterAnswer")
+        .textContent =
+        currentScore.better;
+
+
+    document.getElementById("tips")
+        .textContent =
+        currentScore.tips;
+
+
+    document.getElementById("feedbackSection")
+        .classList.remove("hidden");
+
+
+    document.getElementById("feedbackSection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+
+/* =========================================================
+   NEXT QUESTION
+========================================================= */
+
+function nextQuestion() {
+
+    currentIndex++;
+
+    document.getElementById("feedbackSection")
+        .classList.add("hidden");
+
+    showQuestion();
+
+    document.getElementById("interviewSection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+
+/* =========================================================
+   TRY AGAIN
+========================================================= */
+
+function tryAgain() {
+
+    document.getElementById("feedbackSection")
+        .classList.add("hidden");
+
+    document.getElementById("answer").value = "";
+
+    startTimer();
+}
+
+
+/* =========================================================
+   FINISH INTERVIEW
+========================================================= */
+
+function finishInterview() {
+
+    clearInterval(timerInterval);
+
+    stopVoice();
+
+
+    document.getElementById("interviewSection")
+        .classList.add("hidden");
+
+    document.getElementById("feedbackSection")
+        .classList.add("hidden");
+
+    document.getElementById("resultSection")
+        .classList.remove("hidden");
+
+
+    let total = 0;
+
+    let best = 0;
+
+
+    scores.forEach(score => {
+
+        total += score.overall;
+
+        if (score.overall > best) {
+
+            best = score.overall;
+        }
+    });
+
+
+    const average =
+        scores.length
+        ? Math.round(total / scores.length)
+        : 0;
+
+
+    document.getElementById("finalScore")
+        .textContent =
+        average + "%";
+
+
+    document.getElementById("resultTotal")
+        .textContent =
+        currentQuestions.length;
+
+
+    document.getElementById("resultAnswered")
+        .textContent =
+        scores.length;
+
+
+    document.getElementById("resultBest")
+        .textContent =
+        best + "%";
+
+
+    document.getElementById("resultSection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+function restartInterview() {
+
+    clearInterval(timerInterval);
+
+    stopVoice();
+
+
+    document.getElementById("resultSection")
+        .classList.add("hidden");
+
+    document.getElementById("feedbackSection")
+        .classList.add("hidden");
+
+    document.getElementById("interviewSection")
+        .classList.add("hidden");
+
+    document.getElementById("setupSection")
+        .classList.remove("hidden");
+
+
+    currentQuestions = [];
+
+    currentIndex = 0;
+
+    scores = [];
+
+}
+
+
+/* =========================================================
+   EXIT
+========================================================= */
+
+function exitInterview() {
+
+    const confirmExit =
+        confirm(
+            "Are you sure you want to exit the interview?"
+        );
+
+
+    if (!confirmExit) {
+        return;
+    }
+
+
+    clearInterval(timerInterval);
+
+    stopVoice();
+
+    restartInterview();
+}
+
+
+/* =========================================================
+   FINAL VERIFICATION
+========================================================= */
+
+console.log(
+    "=========================================="
+);
+
+console.log(
+    "SpeakWise Interview Bank Ready"
+);
+
+console.log(
+    "TOTAL QUESTIONS:",
+    INTERVIEW_QUESTIONS.length
+);
+
+console.log(
+    "Expected TOTAL: 3100"
+);
+
+console.log(
+    "=========================================="
+);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,993 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Vocabulary Builder - SpeakWise AI
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+
+        /* NAVBAR */
+
+        nav {
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            padding: 16px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+        }
+
+
+        .logo {
+            color: white;
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+
+        .nav-links {
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 12px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+        }
+
+
+        .nav-links a:hover {
+            background:
+                rgba(255,255,255,0.18);
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            width: 92%;
+
+            max-width: 1150px;
+
+            margin: 35px auto;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+
+            margin-bottom: 25px;
+        }
+
+
+        .header h1 {
+            color: #4f46e5;
+
+            margin-bottom: 10px;
+        }
+
+
+        .header p {
+            color: #777;
+
+            line-height: 1.6;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+
+        .search-box input {
+            width: 100%;
+
+            padding: 14px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 16px;
+        }
+
+
+        .search-box input:focus {
+            border-color: #667eea;
+        }
+
+
+        /* WORDS */
+
+        .words {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .word-card {
+            background: white;
+
+            padding: 23px;
+
+            border-radius: 17px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+
+            transition: 0.3s;
+        }
+
+
+        .word-card:hover {
+            transform: translateY(-5px);
+        }
+
+
+        .word {
+            font-size: 25px;
+
+            font-weight: bold;
+
+            color: #4f46e5;
+
+            margin-bottom: 8px;
+        }
+
+
+        .meaning {
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+
+        .hindi {
+            color: #764ba2;
+
+            margin-bottom: 12px;
+        }
+
+
+        .example {
+            color: #666;
+
+            line-height: 1.5;
+
+            font-size: 14px;
+        }
+
+
+        .speak-btn {
+            margin-top: 15px;
+
+            padding: 9px 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #667eea;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .speak-btn:hover {
+            background: #4f46e5;
+        }
+
+
+        /* QUIZ */
+
+        .quiz {
+            margin-top: 30px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+
+        .quiz h2 {
+            color: #4f46e5;
+
+            margin-bottom: 15px;
+        }
+
+
+        .quiz-question {
+            font-size: 19px;
+
+            font-weight: bold;
+
+            margin: 20px 0;
+        }
+
+
+        .quiz-option {
+            display: block;
+
+            padding: 13px;
+
+            margin: 10px 0;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+        }
+
+
+        .quiz-option:hover {
+            background: #f0f2ff;
+        }
+
+
+        .quiz-option input {
+            margin-right: 10px;
+        }
+
+
+        .quiz-btn {
+            margin-top: 15px;
+
+            padding: 11px 18px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #16a34a;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .quiz-result {
+            margin-top: 18px;
+
+            font-weight: bold;
+
+            font-size: 18px;
+        }
+
+
+        @media(max-width:900px) {
+
+            .words {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media(max-width:600px) {
+
+            .words {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+        }
+
+    
+
+        /* Mobile safety / responsive polish */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img, video, iframe, table {
+            max-width: 100%;
+        }
+
+        button, input, select, textarea {
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .container, .page, .content, .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .navbar, nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links, .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a, .nav-menu a {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+
+            h1 {
+                line-height: 1.2;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <div class="logo">
+        🎤 SpeakWise AI
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('index') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('grammar') }}">
+            Grammar
+        </a>
+
+        <a href="{{ url_for('speaking') }}">
+            Speaking
+        </a>
+
+        <a href="{{ url_for('mock_tests') }}">
+            Mock Tests
+        </a>
+
+        <a href="{{ url_for('interview') }}">
+            Interview
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+            🧠 Vocabulary Builder
+        </h1>
+
+        <p>
+            Learn new English words, meanings,
+            examples and pronunciation.
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            id="search"
+            type="text"
+            placeholder="🔍 Search vocabulary..."
+            onkeyup="searchWords()"
+        >
+
+    </div>
+
+
+    <!-- WORDS -->
+
+    <div
+        class="words"
+        id="wordContainer"
+    ></div>
+
+
+    <!-- QUIZ -->
+
+    <div class="quiz">
+
+        <h2>
+            🎯 Vocabulary Quiz
+        </h2>
+
+
+        <div
+            class="quiz-question"
+            id="quizQuestion"
+        ></div>
+
+
+        <div id="quizOptions"></div>
+
+
+        <button
+            class="quiz-btn"
+            onclick="checkQuiz()"
+        >
+            Check Answer
+        </button>
+
+
+        <div
+            class="quiz-result"
+            id="quizResult"
+        ></div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+const vocabulary = [
+
+    {
+        word: "Abundant",
+        meaning: "Available in large quantity",
+        hindi: "बहुत अधिक / प्रचुर",
+        example: "India has abundant sunlight."
+    },
+
+    {
+        word: "Accurate",
+        meaning: "Correct and exact",
+        hindi: "सटीक / सही",
+        example: "Please give me accurate information."
+    },
+
+    {
+        word: "Ambitious",
+        meaning: "Having strong goals",
+        hindi: "महत्वाकांक्षी",
+        example: "She is an ambitious student."
+    },
+
+    {
+        word: "Brilliant",
+        meaning: "Very intelligent or excellent",
+        hindi: "बहुत बुद्धिमान / शानदार",
+        example: "He gave a brilliant answer."
+    },
+
+    {
+        word: "Confident",
+        meaning: "Feeling sure about yourself",
+        hindi: "आत्मविश्वासी",
+        example: "She is confident during interviews."
+    },
+
+    {
+        word: "Curious",
+        meaning: "Wanting to know more",
+        hindi: "जिज्ञासु",
+        example: "The student is curious about technology."
+    },
+
+    {
+        word: "Diligent",
+        meaning: "Hard-working and careful",
+        hindi: "मेहनती",
+        example: "He is a diligent student."
+    },
+
+    {
+        word: "Efficient",
+        meaning: "Working well without wasting time",
+        hindi: "कुशल",
+        example: "She is an efficient programmer."
+    },
+
+    {
+        word: "Essential",
+        meaning: "Very important or necessary",
+        hindi: "आवश्यक",
+        example: "Communication skills are essential for interviews."
+    },
+
+    {
+        word: "Flexible",
+        meaning: "Able to change easily",
+        hindi: "लचीला",
+        example: "A flexible employee can adapt quickly."
+    },
+
+    {
+        word: "Generous",
+        meaning: "Willing to give or share",
+        hindi: "उदार",
+        example: "He is generous with his knowledge."
+    },
+
+    {
+        word: "Honest",
+        meaning: "Truthful",
+        hindi: "ईमानदार",
+        example: "An honest person earns trust."
+    },
+
+    {
+        word: "Innovative",
+        meaning: "Introducing new ideas",
+        hindi: "नवीन / रचनात्मक",
+        example: "The company uses innovative technology."
+    },
+
+    {
+        word: "Motivate",
+        meaning: "To encourage someone",
+        hindi: "प्रेरित करना",
+        example: "Good teachers motivate students."
+    },
+
+    {
+        word: "Reliable",
+        meaning: "Can be trusted",
+        hindi: "विश्वसनीय",
+        example: "He is a reliable team member."
+    },
+
+    {
+        word: "Significant",
+        meaning: "Important or meaningful",
+        hindi: "महत्वपूर्ण",
+        example: "This project made a significant improvement."
+    },
+
+    {
+        word: "Adapt",
+        meaning: "To adjust to a new situation",
+        hindi: "अनुकूल होना",
+        example: "Students must adapt to new technology."
+    },
+
+    {
+        word: "Benefit",
+        meaning: "An advantage or useful result",
+        hindi: "लाभ",
+        example: "Reading has many benefits."
+    },
+
+    {
+        word: "Challenge",
+        meaning: "A difficult task or situation",
+        hindi: "चुनौती",
+        example: "Learning programming can be a challenge."
+    },
+
+    {
+        word: "Opportunity",
+        meaning: "A chance for progress",
+        hindi: "अवसर",
+        example: "This internship is a great opportunity."
+    }
+
+];
+
+
+function displayWords(list = vocabulary) {
+
+    const container =
+        document.getElementById(
+            "wordContainer"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (list.length === 0) {
+
+        container.innerHTML = `
+
+            <div
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:30px;
+                "
+            >
+
+                <h3>
+                    No vocabulary found 😔
+                </h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(word => {
+
+        container.innerHTML += `
+
+            <div class="word-card">
+
+                <div class="word">
+                    ${word.word}
+                </div>
+
+                <div class="meaning">
+                    🇬🇧 ${word.meaning}
+                </div>
+
+                <div class="hindi">
+                    🇮🇳 ${word.hindi}
+                </div>
+
+                <div class="example">
+
+                    <strong>
+                        Example:
+                    </strong>
+
+                    ${word.example}
+
+                </div>
+
+
+                <button
+                    class="speak-btn"
+                    onclick="speakWord('${word.word}')"
+                >
+
+                    🔊 Pronounce
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+function searchWords() {
+
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase();
+
+
+    const filtered =
+        vocabulary.filter(word =>
+
+            word.word
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            word.meaning
+                .toLowerCase()
+                .includes(search)
+
+            ||
+
+            word.hindi
+                .includes(search)
+
+        );
+
+
+    displayWords(filtered);
+
+}
+
+
+function speakWord(word) {
+
+    if (
+        "speechSynthesis"
+        in window
+    ) {
+
+        const speech =
+            new SpeechSynthesisUtterance(
+                word
+            );
+
+        speech.lang = "en-US";
+
+        speech.rate = 0.8;
+
+        window.speechSynthesis.speak(
+            speech
+        );
+
+    }
+
+}
+
+
+/* QUIZ */
+
+let currentQuiz = null;
+
+let quizScore = 0;
+
+
+function generateQuiz() {
+
+    currentQuiz =
+        vocabulary[
+            Math.floor(
+                Math.random()
+                * vocabulary.length
+            )
+        ];
+
+
+    document.getElementById(
+        "quizQuestion"
+    ).textContent =
+
+        `What is the meaning of "${currentQuiz.word}"?`;
+
+
+    let options = [
+        currentQuiz.meaning
+    ];
+
+
+    while (options.length < 4) {
+
+        const randomWord =
+            vocabulary[
+                Math.floor(
+                    Math.random()
+                    * vocabulary.length
+                )
+            ];
+
+
+        if (
+            !options.includes(
+                randomWord.meaning
+            )
+        ) {
+
+            options.push(
+                randomWord.meaning
+            );
+
+        }
+
+    }
+
+
+    options.sort(
+        () => Math.random() - 0.5
+    );
+
+
+    document.getElementById(
+        "quizOptions"
+    ).innerHTML =
+
+        options.map(
+            (option, index) => `
+
+                <label class="quiz-option">
+
+                    <input
+                        type="radio"
+                        name="quiz"
+                        value="${option}"
+                    >
+
+                    ${String.fromCharCode(
+                        65 + index
+                    )}.
+
+                    ${option}
+
+                </label>
+
+            `
+        ).join("");
+
+
+    document.getElementById(
+        "quizResult"
+    ).textContent = "";
+
+}
+
+
+function checkQuiz() {
+
+    const selected =
+        document.querySelector(
+            'input[name="quiz"]:checked'
+        );
+
+
+    if (!selected) {
+
+        document.getElementById(
+            "quizResult"
+        ).textContent =
+            "⚠️ Please select an answer.";
+
+        return;
+
+    }
+
+
+    if (
+        selected.value ===
+        currentQuiz.meaning
+    ) {
+
+        quizScore++;
+
+
+        document.getElementById(
+            "quizResult"
+        ).textContent =
+
+            `✅ Correct! Score: ${quizScore}`;
+
+    }
+
+    else {
+
+        document.getElementById(
+            "quizResult"
+        ).textContent =
+
+            `❌ Incorrect. Correct answer: ${currentQuiz.meaning}`;
+
+    }
+
+
+    setTimeout(
+        generateQuiz,
+        1200
+    );
+
+}
+
+
+displayWords();
+
+generateQuiz();
+
+</script>
+
+
+</body>
+
+</html>
+```

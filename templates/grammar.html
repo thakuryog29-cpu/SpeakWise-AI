@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Grammar Practice - SpeakWise AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: #ffffff;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .nav-links .active {
+            color: #4f46e5;
+        }
+
+        .logout {
+            background: #ef4444;
+            color: white !important;
+            padding: 9px 16px;
+            border-radius: 8px;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 40px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 36px;
+            color: #1e1b4b;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 35px;
+            font-size: 16px;
+        }
+
+        /* SETTINGS CARD */
+
+        .settings-card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .setting-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: #312e81;
+        }
+
+        .setting-section {
+            margin-bottom: 28px;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .option-btn {
+            padding: 12px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            transition: all 0.25s ease;
+        }
+
+        .option-btn:hover {
+            border-color: #6366f1;
+            color: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.selected {
+            background: #4f46e5;
+            border-color: #4f46e5;
+            color: white;
+            box-shadow: 0 5px 15px rgba(79,70,229,0.25);
+        }
+
+        .start-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79,70,229,0.3);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            margin-top: 15px;
+            color: #4f46e5;
+            font-weight: bold;
+            display: none;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* PRACTICE */
+
+        #practiceSection {
+            display: none;
+        }
+
+        .practice-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .practice-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .timer {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 9px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .question-text {
+            font-size: 23px;
+            line-height: 1.5;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #1e293b;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .answer-option {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 16px;
+            transition: 0.25s;
+        }
+
+        .answer-option:hover {
+            border-color: #818cf8;
+            background: #f8f7ff;
+        }
+
+        .answer-option.selected {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+
+        .answer-option.correct {
+            border-color: #16a34a;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .answer-option.wrong {
+            border-color: #dc2626;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .explanation {
+            margin-top: 22px;
+            padding: 18px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .explanation strong {
+            color: #312e81;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .exit-btn {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .check-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .next-btn {
+            background: #16a34a;
+            color: white;
+            display: none;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* RESULT */
+
+        #resultSection {
+            display: none;
+        }
+
+        .result-card {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .result-title {
+            font-size: 30px;
+            color: #312e81;
+            margin-bottom: 25px;
+        }
+
+        .score {
+            font-size: 50px;
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 25px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .stat-box h3 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .stat-box p {
+            color: #64748b;
+        }
+
+        .correct-stat h3 {
+            color: #16a34a;
+        }
+
+        .wrong-stat h3 {
+            color: #dc2626;
+        }
+
+        .total-stat h3 {
+            color: #4f46e5;
+        }
+
+        .result-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .result-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .again-btn {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .dashboard-btn {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 768px) {
+
+            nav {
+                padding: 15px 4%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .settings-card,
+            .practice-card,
+            .result-card {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 19px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .button-row,
+            .result-buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    
+
+        /* Mobile safety / responsive polish */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img, video, iframe, table {
+            max-width: 100%;
+        }
+
+        button, input, select, textarea {
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .container, .page, .content, .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .navbar, nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links, .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a, .nav-menu a {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+
+            h1 {
+                line-height: 1.2;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🗣️ SpeakWise AI
+    </div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/grammar" class="active">Grammar</a>
+        <a href="/mock-tests">Mock Tests</a>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <!-- SETTINGS SECTION -->
+
+    <section id="settingsSection">
+
+        <h1 class="page-title">
+            Grammar Practice
+        </h1>
+
+        <p class="page-subtitle">
+            Improve your English grammar with interactive practice
+        </p>
+
+
+        <div class="settings-card">
+
+            <!-- TOPIC -->
+
+            <div class="setting-section">
+
+                <div class="setting-title">
+                    📚 Select Grammar Topic
+                </div>
+
+                <div class="options-grid">
+
+                    <button class="option-btn topic-btn selected"
+                            data-topic="all">
+                        All Grammar
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="tenses">
+                        Tenses
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="articles">
+                        Articles
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="prepositions">
+                        Prepositions
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="pronouns">
+                        Pronouns
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="adjectives">
+                        Adjectives
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="adverbs">
+                        Adverbs
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="conjunctions">
+                        Conjunctions
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="subject-verb">
+                        Subject-Verb Agreement
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="active-passive">
+                        Active & Passive
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="direct-indirect">
+                        Direct & Indirect
+                    </button>
+
+                    <button class="option-btn topic-btn"
+                            data-topic="modals">
+                        Modals
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- DIFFICULTY -->
+
+            <div class="setting-section">
+
+                <div class="setting-title">
+                    🎯 Difficulty Level
+                </div>
+
+                <div class="options-grid">
+
+                    <button class="option-btn difficulty-btn selected"
+                            data-difficulty="all">
+                        All
+                    </button>
+
+                    <button class="option-btn difficulty-btn"
+                            data-difficulty="easy">
+                        Easy
+                    </button>
+
+                    <button class="option-btn difficulty-btn"
+                            data-difficulty="medium">
+                        Medium
+                    </button>
+
+                    <button class="option-btn difficulty-btn"
+                            data-difficulty="hard">
+                        Hard
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION COUNT -->
+
+            <div class="setting-section">
+
+                <div class="setting-title">
+                    📝 Number of Questions
+                </div>
+
+                <div class="options-grid">
+
+                    <button class="option-btn count-btn selected"
+                            data-count="10">
+                        10 Questions
+                    </button>
+
+                    <button class="option-btn count-btn"
+                            data-count="20">
+                        20 Questions
+                    </button>
+
+                    <button class="option-btn count-btn"
+                            data-count="30">
+                        30 Questions
+                    </button>
+
+                    <button class="option-btn count-btn"
+                            data-count="50">
+                        50 Questions
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODE -->
+
+            <div class="setting-section">
+
+                <div class="setting-title">
+                    ⚡ Practice Mode
+                </div>
+
+                <div class="options-grid">
+
+                    <button class="option-btn mode-btn selected"
+                            data-mode="practice">
+                        Practice Mode
+                    </button>
+
+                    <button class="option-btn mode-btn"
+                            data-mode="quick">
+                        Quick Practice
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button id="startBtn" class="start-btn">
+                🚀 Start Practice
+            </button>
+
+            <div id="loadingMessage" class="loading">
+                Loading questions...
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRACTICE SECTION -->
+
+    <section id="practiceSection">
+
+        <div class="practice-card">
+
+            <div class="practice-top">
+
+                <div id="questionNumber" class="question-number">
+                    Question 1 / 10
+                </div>
+
+                <div id="timer" class="timer">
+                    ⏱️ 60 sec
+                </div>
+
+            </div>
+
+
+            <div class="progress-container">
+
+                <div id="progressBar"
+                     class="progress-bar">
+                </div>
+
+            </div>
+
+
+            <div id="questionText"
+                 class="question-text">
+            </div>
+
+
+            <div id="optionsContainer"
+                 class="options-container">
+            </div>
+
+
+            <div id="explanation"
+                 class="explanation">
+            </div>
+
+
+            <div class="button-row">
+
+                <button id="exitBtn"
+                        class="action-btn exit-btn">
+                    Exit
+                </button>
+
+                <button id="checkBtn"
+                        class="action-btn check-btn">
+                    Check Answer
+                </button>
+
+                <button id="nextBtn"
+                        class="action-btn next-btn">
+                    Next Question
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULT SECTION -->
+
+    <section id="resultSection">
+
+        <div class="result-card">
+
+            <div class="result-icon">
+                🎉
+            </div>
+
+            <h2 class="result-title">
+                Practice Completed!
+            </h2>
+
+            <div id="finalScore"
+                 class="score">
+                0%
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat-box correct-stat">
+
+                    <h3 id="correctCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Correct
+                    </p>
+
+                </div>
+
+
+                <div class="stat-box wrong-stat">
+
+                    <h3 id="wrongCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Wrong
+                    </p>
+
+                </div>
+
+
+                <div class="stat-box total-stat">
+
+                    <h3 id="totalCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Total
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-buttons">
+
+                <button id="againBtn"
+                        class="result-btn again-btn">
+                    🔄 Practice Again
+                </button>
+
+                <a href="/dashboard"
+                   class="result-btn dashboard-btn">
+                    🏠 Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+    /* ================================
+       GLOBAL VARIABLES
+    ================================= */
+
+    let allQuestions = [];
+
+    let practiceQuestions = [];
+
+    let currentQuestionIndex = 0;
+
+    let selectedAnswer = null;
+
+    let score = 0;
+
+    let correctAnswers = 0;
+
+    let wrongAnswers = 0;
+
+    let timerInterval = null;
+
+    let timeLeft = 60;
+
+    let currentTopic = "all";
+
+    let currentDifficulty = "all";
+
+    let questionCount = 10;
+
+    let currentMode = "practice";
+
+
+    /* ================================
+       ELEMENTS
+    ================================= */
+
+    const settingsSection =
+        document.getElementById("settingsSection");
+
+    const practiceSection =
+        document.getElementById("practiceSection");
+
+    const resultSection =
+        document.getElementById("resultSection");
+
+    const startBtn =
+        document.getElementById("startBtn");
+
+    const loadingMessage =
+        document.getElementById("loadingMessage");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+    const questionNumber =
+        document.getElementById("questionNumber");
+
+    const timer =
+        document.getElementById("timer");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const questionText =
+        document.getElementById("questionText");
+
+    const optionsContainer =
+        document.getElementById("optionsContainer");
+
+    const explanation =
+        document.getElementById("explanation");
+
+    const checkBtn =
+        document.getElementById("checkBtn");
+
+    const nextBtn =
+        document.getElementById("nextBtn");
+
+    const exitBtn =
+        document.getElementById("exitBtn");
+
+    const againBtn =
+        document.getElementById("againBtn");
+
+
+    /* ================================
+       TOPIC BUTTONS
+    ================================= */
+
+    document.querySelectorAll(".topic-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", function() {
+
+                document.querySelectorAll(".topic-btn")
+                    .forEach(btn =>
+                        btn.classList.remove("selected")
+                    );
+
+                this.classList.add("selected");
+
+                currentTopic =
+                    this.dataset.topic;
+
+            });
+
+        });
+
+
+    /* ================================
+       DIFFICULTY BUTTONS
+    ================================= */
+
+    document.querySelectorAll(".difficulty-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", function() {
+
+                document.querySelectorAll(".difficulty-btn")
+                    .forEach(btn =>
+                        btn.classList.remove("selected")
+                    );
+
+                this.classList.add("selected");
+
+                currentDifficulty =
+                    this.dataset.difficulty;
+
+            });
+
+        });
+
+
+    /* ================================
+       COUNT BUTTONS
+    ================================= */
+
+    document.querySelectorAll(".count-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", function() {
+
+                document.querySelectorAll(".count-btn")
+                    .forEach(btn =>
+                        btn.classList.remove("selected")
+                    );
+
+                this.classList.add("selected");
+
+                questionCount =
+                    parseInt(this.dataset.count);
+
+            });
+
+        });
+
+
+    /* ================================
+       MODE BUTTONS
+    ================================= */
+
+    document.querySelectorAll(".mode-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", function() {
+
+                document.querySelectorAll(".mode-btn")
+                    .forEach(btn =>
+                        btn.classList.remove("selected")
+                    );
+
+                this.classList.add("selected");
+
+                currentMode =
+                    this.dataset.mode;
+
+            });
+
+        });
+
+
+    /* ================================
+       LOAD QUESTIONS
+    ================================= */
+
+    async function loadQuestions() {
+
+        try {
+
+            const response =
+                await fetch("/api/questions", {
+                    cache: "no-store"
+                });
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server returned error " +
+                    response.status
+                );
+
+            }
+
+            const data =
+                await response.json();
+
+            if (!Array.isArray(data)) {
+
+                throw new Error(
+                    "Question data is not an array."
+                );
+
+            }
+
+            allQuestions = data;
+
+            console.log(
+                "Questions loaded:",
+                allQuestions.length
+            );
+
+            if (allQuestions.length === 0) {
+
+                throw new Error(
+                    "No questions found in questions.json."
+                );
+
+            }
+
+            return true;
+
+        } catch (error) {
+
+            console.error(
+                "Question loading error:",
+                error
+            );
+
+            showError(
+                "Questions load nahi ho pa rahe. " +
+                "Please make sure Flask server is running."
+            );
+
+            return false;
+        }
+
+    }
+
+
+    /* ================================
+       SHOW ERROR
+    ================================= */
+
+    function showError(message) {
+
+        errorMessage.textContent = message;
+
+        errorMessage.style.display = "block";
+
+    }
+
+
+    /* ================================
+       HIDE ERROR
+    ================================= */
+
+    function hideError() {
+
+        errorMessage.style.display = "none";
+
+    }
+
+
+    /* ================================
+       NORMALIZE VALUE
+    ================================= */
+
+    function normalize(value) {
+
+        return String(value || "")
+            .trim()
+            .toLowerCase();
+
+    }
+
+
+    /* ================================
+       IS GRAMMAR QUESTION
+    ================================= */
+
+    function isGrammarQuestion(question) {
+
+        const category =
+            normalize(question.category);
+
+        if (category === "grammar") {
+            return true;
+        }
+
+        if (category.includes("grammar")) {
+            return true;
+        }
+
+        /*
+           Agar category missing hai to
+           grammar-related questions ko identify
+           karne ki koshish.
+        */
+
+        const text =
+            normalize(question.question);
+
+        const grammarWords = [
+
+            "choose the correct",
+            "correct sentence",
+            "fill in the blank",
+            "fill in the blanks",
+            "grammar",
+            "verb",
+            "tense",
+            "article",
+            "preposition",
+            "pronoun",
+            "adjective",
+            "adverb",
+            "conjunction",
+            "modal"
+
+        ];
+
+        return grammarWords.some(word =>
+            text.includes(word)
+        );
+
+    }
+
+
+    /* ================================
+       TOPIC MATCH
+    ================================= */
+
+    function matchesTopic(question, topic) {
+
+        if (topic === "all") {
+            return true;
+        }
+
+        /*
+           Agar JSON mein topic field available hai
+           to sabse pehle usko use karenge.
+        */
+
+        if (question.topic) {
+
+            const qTopic =
+                normalize(question.topic);
+
+            if (
+                qTopic.includes(topic) ||
+                topic.includes(qTopic)
+            ) {
+
+                return true;
+
+            }
+
+        }
+
+
+        /*
+           Question text ke basis par topic detect.
+        */
+
+        const text =
+            normalize(
+                (question.question || "") +
+                " " +
+                (question.explanation || "")
+            );
+
+
+        const topicKeywords = {
+
+            "tenses": [
+                "tense",
+                "present",
+                "past",
+                "future",
+                "had",
+                "has been",
+                "have been",
+                "will",
+                "would"
+            ],
+
+            "articles": [
+                " a ",
+                " an ",
+                " the ",
+                "article"
+            ],
+
+            "prepositions": [
+                "preposition",
+                " in ",
+                " on ",
+                " at ",
+                " by ",
+                "for ",
+                "from ",
+                "with ",
+                "into ",
+                "between "
+            ],
+
+            "pronouns": [
+                "pronoun",
+                "he ",
+                "she ",
+                "they ",
+                "we ",
+                "you ",
+                "him ",
+                "her ",
+                "them ",
+                "his ",
+                "their "
+            ],
+
+            "adjectives": [
+                "adjective",
+                "beautiful",
+                "big",
+                "small",
+                "good",
+                "bad",
+                "tall",
+                "short"
+            ],
+
+            "adverbs": [
+                "adverb",
+                "quickly",
+                "slowly",
+                "carefully",
+                "always",
+                "never",
+                "often"
+            ],
+
+            "conjunctions": [
+                "conjunction",
+                "and ",
+                "but ",
+                "or ",
+                "because",
+                "although",
+                "while",
+                "unless"
+            ],
+
+            "subject-verb": [
+                "subject verb",
+                "subject-verb",
+                "agreement"
+            ],
+
+            "active-passive": [
+                "active voice",
+                "passive voice",
+                "active and passive",
+                "active & passive",
+                "passive"
+            ],
+
+            "direct-indirect": [
+                "direct speech",
+                "indirect speech",
+                "direct and indirect",
+                "direct & indirect",
+                "reported speech"
+            ],
+
+            "modals": [
+                "modal",
+                "can ",
+                "could ",
+                "may ",
+                "might ",
+                "must ",
+                "should ",
+                "shall "
+            ]
+
+        };
+
+
+        const keywords =
+            topicKeywords[topic] || [];
+
+        return keywords.some(keyword =>
+            text.includes(normalize(keyword))
+        );
+
+    }
+
+
+    /* ================================
+       SHUFFLE
+    ================================= */
+
+    function shuffle(array) {
+
+        const copy = [...array];
+
+        for (
+            let i = copy.length - 1;
+            i > 0;
+            i--
+        ) {
+
+            const j =
+                Math.floor(
+                    Math.random() * (i + 1)
+                );
+
+            [
+                copy[i],
+                copy[j]
+            ] =
+            [
+                copy[j],
+                copy[i]
+            ];
+
+        }
+
+        return copy;
+
+    }
+
+
+    /* ================================
+       START PRACTICE
+    ================================= */
+
+    async function startPractice() {
+
+        hideError();
+
+        startBtn.disabled = true;
+
+        loadingMessage.style.display = "block";
+
+        if (allQuestions.length === 0) {
+
+            const loaded =
+                await loadQuestions();
+
+            if (!loaded) {
+
+                startBtn.disabled = false;
+
+                loadingMessage.style.display =
+                    "none";
+
+                return;
+
+            }
+
+        }
+
+
+        /*
+           Step 1:
+           Grammar questions
+        */
+
+        let filtered =
+            allQuestions.filter(
+                question =>
+                    isGrammarQuestion(question)
+            );
+
+
+        /*
+           Agar grammar category se questions
+           nahi mile to saare questions use.
+        */
+
+        if (filtered.length === 0) {
+
+            filtered = [...allQuestions];
+
+        }
+
+
+        /*
+           Step 2:
+           Difficulty
+        */
+
+        if (currentDifficulty !== "all") {
+
+            const difficultyQuestions =
+                filtered.filter(question =>
+                    normalize(question.difficulty) ===
+                    currentDifficulty
+                );
+
+            /*
+               Agar selected difficulty mein
+               questions hain tabhi filter apply.
+            */
+
+            if (difficultyQuestions.length > 0) {
+
+                filtered =
+                    difficultyQuestions;
+
+            }
+
+        }
+
+
+        /*
+           Step 3:
+           Topic
+        */
+
+        if (currentTopic !== "all") {
+
+            const topicQuestions =
+                filtered.filter(question =>
+                    matchesTopic(
+                        question,
+                        currentTopic
+                    )
+                );
+
+            /*
+               Topic questions mile to use karo.
+               Nahi mile to practice ko blank mat karo.
+            */
+
+            if (topicQuestions.length > 0) {
+
+                filtered =
+                    topicQuestions;
+
+            }
+
+        }
+
+
+        /*
+           Step 4:
+           Random questions
+        */
+
+        filtered =
+            shuffle(filtered);
+
+
+        /*
+           Count available questions se zyada
+           hua to jitne available hain utne.
+        */
+
+        practiceQuestions =
+            filtered.slice(
+                0,
+                Math.min(
+                    questionCount,
+                    filtered.length
+                )
+            );
+
+
+        if (practiceQuestions.length === 0) {
+
+            showError(
+                "Practice ke liye questions nahi mile."
+            );
+
+            startBtn.disabled = false;
+
+            loadingMessage.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        /*
+           Reset score
+        */
+
+        currentQuestionIndex = 0;
+
+        selectedAnswer = null;
+
+        score = 0;
+
+        correctAnswers = 0;
+
+        wrongAnswers = 0;
+
+
+        /*
+           Show practice
+        */
+
+        settingsSection.style.display =
+            "none";
+
+        resultSection.style.display =
+            "none";
+
+        practiceSection.style.display =
+            "block";
+
+        loadingMessage.style.display =
+            "none";
+
+        startBtn.disabled = false;
+
+
+        showQuestion();
+
+    }
+
+
+    /* ================================
+       SHOW QUESTION
+    ================================= */
+
+    function showQuestion() {
+
+        clearInterval(timerInterval);
+
+        selectedAnswer = null;
+
+        explanation.style.display =
+            "none";
+
+        explanation.innerHTML = "";
+
+
+        const question =
+            practiceQuestions[
+                currentQuestionIndex
+            ];
+
+
+        if (!question) {
+
+            finishPractice();
+
+            return;
+
+        }
+
+
+        const total =
+            practiceQuestions.length;
+
+
+        const current =
+            currentQuestionIndex + 1;
+
+
+        questionNumber.textContent =
+            `Question ${current} / ${total}`;
+
+
+        progressBar.style.width =
+            `${(current / total) * 100}%`;
+
+
+        questionText.textContent =
+            question.question ||
+            "Question not available.";
+
+
+        optionsContainer.innerHTML =
+            "";
+
+
+        /*
+           Options normalize
+        */
+
+        let options = [];
+
+
+        if (Array.isArray(question.options)) {
+
+            options =
+                [...question.options];
+
+        } else if (
+            typeof question.options === "string"
+        ) {
+
+            options =
+                question.options
+                    .split("|")
+                    .map(option => option.trim())
+                    .filter(Boolean);
+
+        }
+
+
+        options =
+            shuffle(options);
+
+
+        options.forEach(
+            (option, index) => {
+
+                const button =
+                    document.createElement("button");
+
+                button.className =
+                    "answer-option";
+
+                button.dataset.value =
+                    option;
+
+                button.innerHTML =
+                    `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        selectAnswer(
+                            option,
+                            button
+                        );
+
+                    }
+                );
+
+                optionsContainer.appendChild(
+                    button
+                );
+
+            }
+        );
+
+
+        checkBtn.style.display =
+            "block";
+
+        nextBtn.style.display =
+            "none";
+
+        checkBtn.disabled = false;
+
+
+        /*
+           Timer
+        */
+
+        timeLeft =
+            currentMode === "quick"
+                ? 30
+                : 60;
+
+
+        updateTimer();
+
+        timerInterval =
+            setInterval(
+                updateTimer,
+                1000
+            );
+
+    }
+
+
+    /* ================================
+       SELECT ANSWER
+    ================================= */
+
+    function selectAnswer(
+        answer,
+        button
+    ) {
+
+        document
+            .querySelectorAll(
+                ".answer-option"
+            )
+            .forEach(option => {
+
+                option.classList.remove(
+                    "selected"
+                );
+
+            });
+
+
+        button.classList.add(
+            "selected"
+        );
+
+
+        selectedAnswer =
+            answer;
+
+    }
+
+
+    /* ================================
+       NORMALIZE CORRECT ANSWER
+    ================================= */
+
+    function getCorrectAnswer(question) {
+
+        const answer =
+            question.answer;
+
+
+        /*
+           Numeric index support
+        */
+
+        if (
+            typeof answer === "number" &&
+            Array.isArray(question.options)
+        ) {
+
+            return String(
+                question.options[answer]
+            );
+
+        }
+
+
+        /*
+           A / B / C / D support
+        */
+
+        if (
+            typeof answer === "string"
+        ) {
+
+            const clean =
+                answer.trim();
+
+            if (
+                /^[A-Da-d]$/.test(clean) &&
+                Array.isArray(question.options)
+            ) {
+
+                const index =
+                    clean.toUpperCase()
+                        .charCodeAt(0) - 65;
+
+                if (
+                    question.options[index]
+                    !== undefined
+                ) {
+
+                    return String(
+                        question.options[index]
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        /*
+           Normal text answer
+        */
+
+        return String(answer || "")
+            .trim();
+
+    }
+
+
+    /* ================================
+       CHECK ANSWER
+    ================================= */
+
+    function checkAnswer() {
+
+        if (selectedAnswer === null) {
+
+            alert(
+                "Please select an answer first."
+            );
+
+            return;
+
+        }
+
+
+        clearInterval(timerInterval);
+
+
+        const question =
+            practiceQuestions[
+                currentQuestionIndex
+            ];
+
+
+        const correctAnswer =
+            getCorrectAnswer(question);
+
+
+        const selected =
+            String(selectedAnswer)
+                .trim()
+                .toLowerCase();
+
+
+        const correct =
+            String(correctAnswer)
+                .trim()
+                .toLowerCase();
+
+
+        const isCorrect =
+            selected === correct;
+
+
+        document
+            .querySelectorAll(
+                ".answer-option"
+            )
+            .forEach(button => {
+
+                const value =
+                    String(
+                        button.dataset.value
+                    )
+                    .trim()
+                    .toLowerCase();
+
+
+                if (value === correct) {
+
+                    button.classList.add(
+                        "correct"
+                    );
+
+                }
+
+
+                if (
+                    value === selected &&
+                    !isCorrect
+                ) {
+
+                    button.classList.add(
+                        "wrong"
+                    );
+
+                }
+
+
+                button.disabled =
+                    true;
+
+            });
+
+
+        if (isCorrect) {
+
+            score++;
+
+            correctAnswers++;
+
+        } else {
+
+            wrongAnswers++;
+
+        }
+
+
+        /*
+           Explanation
+        */
+
+        const explanationText =
+            question.explanation ||
+            `Correct answer: ${correctAnswer}`;
+
+
+        explanation.innerHTML =
+            `<strong>${isCorrect ? "✅ Correct!" : "❌ Incorrect!"}</strong><br><br>
+             <strong>Correct Answer:</strong> ${correctAnswer}<br><br>
+             <strong>Explanation:</strong> ${explanationText}`;
+
+
+        explanation.style.display =
+            "block";
+
+
+        checkBtn.style.display =
+            "none";
+
+
+        nextBtn.style.display =
+            "block";
+
+
+        /*
+           Last question
+        */
+
+        if (
+            currentQuestionIndex >=
+            practiceQuestions.length - 1
+        ) {
+
+            nextBtn.textContent =
+                "🏆 See Result";
+
+        } else {
+
+            nextBtn.textContent =
+                "Next Question ➜";
+
+        }
+
+    }
+
+
+    /* ================================
+       NEXT QUESTION
+    ================================= */
+
+    function nextQuestion() {
+
+        currentQuestionIndex++;
+
+        if (
+            currentQuestionIndex >=
+            practiceQuestions.length
+        ) {
+
+            finishPractice();
+
+            return;
+
+        }
+
+
+        showQuestion();
+
+    }
+
+
+    /* ================================
+       TIMER
+    ================================= */
+
+    function updateTimer() {
+
+        timer.textContent =
+            `⏱️ ${timeLeft} sec`;
+
+
+        if (timeLeft <= 0) {
+
+            autoSubmit();
+
+            return;
+
+        }
+
+
+        timeLeft--;
+
+    }
+
+
+    /* ================================
+       AUTO SUBMIT
+    ================================= */
+
+    function autoSubmit() {
+
+        clearInterval(timerInterval);
+
+
+        const question =
+            practiceQuestions[
+                currentQuestionIndex
+            ];
+
+
+        if (!question) {
+
+            finishPractice();
+
+            return;
+
+        }
+
+
+        const correctAnswer =
+            getCorrectAnswer(question);
+
+
+        if (selectedAnswer !== null) {
+
+            const selected =
+                String(selectedAnswer)
+                    .trim()
+                    .toLowerCase();
+
+            const correct =
+                String(correctAnswer)
+                    .trim()
+                    .toLowerCase();
+
+
+            if (selected === correct) {
+
+                score++;
+
+                correctAnswers++;
+
+            } else {
+
+                wrongAnswers++;
+
+            }
+
+        } else {
+
+            wrongAnswers++;
+
+        }
+
+
+        /*
+           Automatically next question
+        */
+
+        currentQuestionIndex++;
+
+
+        if (
+            currentQuestionIndex >=
+            practiceQuestions.length
+        ) {
+
+            finishPractice();
+
+        } else {
+
+            showQuestion();
+
+        }
+
+    }
+
+
+    /* ================================
+       FINISH PRACTICE
+    ================================= */
+
+    function finishPractice() {
+
+        clearInterval(timerInterval);
+
+
+        practiceSection.style.display =
+            "none";
+
+        settingsSection.style.display =
+            "none";
+
+        resultSection.style.display =
+            "block";
+
+
+        const total =
+            practiceQuestions.length;
+
+
+        const percentage =
+            total > 0
+                ? Math.round(
+                    (correctAnswers / total) * 100
+                  )
+                : 0;
+
+
+        document.getElementById(
+            "finalScore"
+        ).textContent =
+            `${percentage}%`;
+
+
+        document.getElementById(
+            "correctCount"
+        ).textContent =
+            correctAnswers;
+
+
+        document.getElementById(
+            "wrongCount"
+        ).textContent =
+            wrongAnswers;
+
+
+        document.getElementById(
+            "totalCount"
+        ).textContent =
+            total;
+
+    }
+
+
+    /* ================================
+       EXIT PRACTICE
+    ================================= */
+
+    function exitPractice() {
+
+        clearInterval(timerInterval);
+
+
+        practiceSection.style.display =
+            "none";
+
+        resultSection.style.display =
+            "none";
+
+        settingsSection.style.display =
+            "block";
+
+    }
+
+
+    /* ================================
+       PRACTICE AGAIN
+    ================================= */
+
+    function practiceAgain() {
+
+        resultSection.style.display =
+            "none";
+
+        settingsSection.style.display =
+            "block";
+
+    }
+
+
+    /* ================================
+       BUTTON EVENTS
+    ================================= */
+
+    startBtn.addEventListener(
+        "click",
+        startPractice
+    );
+
+
+    checkBtn.addEventListener(
+        "click",
+        checkAnswer
+    );
+
+
+    nextBtn.addEventListener(
+        "click",
+        nextQuestion
+    );
+
+
+    exitBtn.addEventListener(
+        "click",
+        exitPractice
+    );
+
+
+    againBtn.addEventListener(
+        "click",
+        practiceAgain
+    );
+
+
+    /* ================================
+       PAGE LOAD
+    ================================= */
+
+    window.addEventListener(
+        "load",
+        async function() {
+
+            await loadQuestions();
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

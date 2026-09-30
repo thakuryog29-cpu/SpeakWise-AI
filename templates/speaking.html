@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Speaking Practice - SpeakWise AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #4f46e5;
+            color: white;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-size: 38px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        .topic-box,
+        .speaking-box,
+        .feedback-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .topic-box h2,
+        .speaking-box h2 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
+
+        .question-box {
+            background: linear-gradient(135deg, #eef2ff, #ffffff);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .question-box h2 {
+            color: #312e81;
+            margin-bottom: 12px;
+        }
+
+        #questionText {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        .mic-area {
+            text-align: center;
+        }
+
+        .mic-button {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: none;
+            background: #4f46e5;
+            color: white;
+            font-size: 38px;
+            cursor: pointer;
+            margin: 20px;
+            transition: 0.3s;
+        }
+
+        .mic-button:hover {
+            transform: scale(1.08);
+            background: #3730a3;
+        }
+
+        .mic-button.recording {
+            background: #dc2626;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+
+        }
+
+        #status {
+            font-weight: bold;
+            color: #4f46e5;
+            margin-bottom: 10px;
+        }
+
+        #timer {
+            font-size: 28px;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            resize: vertical;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+            padding: 13px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            background: #4f46e5;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #3730a3;
+        }
+
+        .btn-green {
+            background: #059669;
+        }
+
+        .btn-green:hover {
+            background: #047857;
+        }
+
+        .btn-gray {
+            background: #6b7280;
+        }
+
+        .btn-gray:hover {
+            background: #4b5563;
+        }
+
+        .result-section {
+            display: none;
+        }
+
+        .result-title {
+            text-align: center;
+            color: #312e81;
+            margin-bottom: 25px;
+            font-size: 30px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .score-card {
+            background: white;
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .score-card h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 30px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        .feedback-card h3 {
+            color: #312e81;
+            margin-bottom: 12px;
+        }
+
+        .feedback-card p {
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .feedback-card ul {
+            padding-left: 25px;
+            line-height: 1.8;
+        }
+
+        .mistake {
+            background: #fff7ed;
+            border-left: 4px solid #f97316;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .wrong {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: #059669;
+            font-weight: bold;
+        }
+
+        .better {
+            background: #eef2ff;
+            border-left: 4px solid #4f46e5;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.7;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .notice {
+            background: #ecfdf5;
+            border-left: 4px solid #059669;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            color: #065f46;
+        }
+
+        @media (max-width: 900px) {
+
+            .score-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 18px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .heading h1 {
+                font-size: 30px;
+            }
+
+            .score-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    
+
+        /* Mobile safety / responsive polish */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img, video, iframe, table {
+            max-width: 100%;
+        }
+
+        button, input, select, textarea {
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .container, .page, .content, .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .navbar, nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links, .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a, .nav-menu a {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+
+            h1 {
+                line-height: 1.2;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🤖 SpeakWise AI
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('index') }}">Home</a>
+
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+
+        <a href="{{ url_for('grammar') }}">Grammar</a>
+
+        <a href="{{ url_for('mock_tests') }}">Mock Tests</a>
+
+        <a href="{{ url_for('speaking') }}">Speaking</a>
+
+        <a href="{{ url_for('grammar_correction') }}">AI Correction</a>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="heading">
+
+        <h1>🎤 Speaking Practice</h1>
+
+        <p>
+            Speak English and get instant free feedback.
+        </p>
+
+    </div>
+
+
+    <div class="notice">
+
+        ✅ <strong>Free Speaking Analysis</strong><br>
+
+        Your speaking transcript is analyzed directly in your browser.
+        No OpenAI API credits are required.
+
+    </div>
+
+
+    <!-- TOPIC -->
+
+    <div class="topic-box">
+
+        <h2>Choose Speaking Topic</h2>
+
+        <select id="topicSelect">
+
+            <option>Tell me about yourself.</option>
+
+            <option>Why do you want to learn English?</option>
+
+            <option>Describe your college life.</option>
+
+            <option>What are your hobbies?</option>
+
+            <option>Tell me about your best friend.</option>
+
+            <option>What is your favorite subject?</option>
+
+            <option>Describe your daily routine.</option>
+
+            <option>What are your career goals?</option>
+
+            <option>Why should we hire you?</option>
+
+            <option>Tell me about your strengths.</option>
+
+            <option>Tell me about your weaknesses.</option>
+
+            <option>Describe your favorite place.</option>
+
+            <option>What do you do in your free time?</option>
+
+            <option>Describe your hometown.</option>
+
+            <option>What are your future plans?</option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION -->
+
+    <div class="question-box">
+
+        <h2>Your Speaking Question</h2>
+
+        <p id="questionText">
+            Tell me about yourself.
+        </p>
+
+    </div>
+
+
+    <!-- SPEAKING -->
+
+    <div class="speaking-box">
+
+        <h2>🎙️ Speak Your Answer</h2>
+
+        <div class="mic-area">
+
+            <p>
+                Click the microphone and speak in English.
+            </p>
+
+            <button
+                id="micButton"
+                class="mic-button"
+                onclick="toggleRecording()">
+
+                🎤
+
+            </button>
+
+            <div id="status">
+                Microphone is ready
+            </div>
+
+            <div id="timer">
+                00:00
+            </div>
+
+        </div>
+
+
+        <textarea
+            id="transcript"
+            placeholder="Your spoken English will appear here..."></textarea>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn btn-gray"
+                onclick="clearText()">
+
+                Clear
+
+            </button>
+
+            <button
+                class="btn btn-green"
+                onclick="analyzeSpeaking()">
+
+                📊 Analyze Speaking
+
+            </button>
+
+            <button
+                class="btn"
+                onclick="nextTopic()">
+
+                Next Topic →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <section
+        id="resultSection"
+        class="result-section">
+
+
+        <h2 class="result-title">
+            📊 Speaking Analysis
+        </h2>
+
+
+        <!-- SCORES -->
+
+        <div class="score-grid">
+
+            <div class="score-card">
+
+                <h3>Overall</h3>
+
+                <div
+                    class="score"
+                    id="overallScore">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>Grammar</h3>
+
+                <div
+                    class="score"
+                    id="grammarScore">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>Vocabulary</h3>
+
+                <div
+                    class="score"
+                    id="vocabularyScore">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>Fluency</h3>
+
+                <div
+                    class="score"
+                    id="fluencyScore">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="score-card">
+
+                <h3>Communication</h3>
+
+                <div
+                    class="score"
+                    id="communicationScore">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- GRAMMAR -->
+
+        <div class="feedback-card">
+
+            <h3>❌ Grammar Check</h3>
+
+            <div id="grammarMistakes">
+                No mistakes found.
+            </div>
+
+        </div>
+
+
+        <!-- VOCABULARY -->
+
+        <div class="feedback-card">
+
+            <h3>📚 Vocabulary Feedback</h3>
+
+            <p id="vocabularyFeedback"></p>
+
+        </div>
+
+
+        <!-- FLUENCY -->
+
+        <div class="feedback-card">
+
+            <h3>🗣️ Fluency Feedback</h3>
+
+            <p id="fluencyFeedback"></p>
+
+        </div>
+
+
+        <!-- COMMUNICATION -->
+
+        <div class="feedback-card">
+
+            <h3>💬 Communication Feedback</h3>
+
+            <p id="communicationFeedback"></p>
+
+        </div>
+
+
+        <!-- BETTER VERSION -->
+
+        <div class="feedback-card">
+
+            <h3>✨ Better Version</h3>
+
+            <div
+                class="better"
+                id="betterVersion">
+            </div>
+
+        </div>
+
+
+        <!-- STRENGTHS -->
+
+        <div class="feedback-card">
+
+            <h3>💪 Strengths</h3>
+
+            <ul id="strengthsList"></ul>
+
+        </div>
+
+
+        <!-- IMPROVEMENTS -->
+
+        <div class="feedback-card">
+
+            <h3>📈 Areas to Improve</h3>
+
+            <ul id="improvementsList"></ul>
+
+        </div>
+
+
+        <!-- TIPS -->
+
+        <div class="feedback-card">
+
+            <h3>💡 Speaking Tips</h3>
+
+            <ul id="tipsList"></ul>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn btn-green"
+                onclick="analyzeSpeaking()">
+
+                🔄 Analyze Again
+
+            </button>
+
+            <button
+                class="btn"
+                onclick="nextTopic()">
+
+                Next Topic →
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   SPEECH RECOGNITION
+========================================= */
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+let recognition = null;
+
+let isRecording = false;
+
+let timerInterval = null;
+
+let startTime = null;
+
+
+if (SpeechRecognition) {
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US";
+
+    recognition.continuous = true;
+
+    recognition.interimResults = true;
+
+
+    recognition.onstart = function() {
+
+        isRecording = true;
+
+        document
+            .getElementById("micButton")
+            .classList.add("recording");
+
+        document
+            .getElementById("micButton")
+            .innerText = "⏹️";
+
+        document
+            .getElementById("status")
+            .innerText = "🔴 Listening... Speak now";
+
+        startTimer();
+
+    };
+
+
+    recognition.onresult = function(event) {
+
+        let finalText = "";
+
+
+        for (
+            let i = event.resultIndex;
+            i < event.results.length;
+            i++
+        ) {
+
+            let text =
+                event.results[i][0].transcript;
+
+
+            if (event.results[i].isFinal) {
+
+                finalText += text + " ";
+
+            }
+
+        }
+
+
+        if (finalText) {
+
+            document
+                .getElementById("transcript")
+                .value += finalText;
+
+        }
+
+    };
+
+
+    recognition.onerror = function(event) {
+
+        console.log(event.error);
+
+        if (event.error === "not-allowed") {
+
+            alert(
+                "Microphone permission denied. Please allow microphone access."
+            );
+
+        }
+
+        stopRecording();
+
+    };
+
+
+    recognition.onend = function() {
+
+        if (isRecording) {
+
+            try {
+
+                recognition.start();
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+        }
+
+    };
+
+} else {
+
+    document
+        .getElementById("status")
+        .innerText =
+        "Speech recognition is not supported. Please use Google Chrome.";
+
+}
+
+
+/* =========================================
+   RECORDING
+========================================= */
+
+function toggleRecording() {
+
+    if (!recognition) {
+
+        alert(
+            "Please use Google Chrome for microphone speaking practice."
+        );
+
+        return;
+
+    }
+
+
+    if (isRecording) {
+
+        stopRecording();
+
+    } else {
+
+        startRecording();
+
+    }
+
+}
+
+
+function startRecording() {
+
+    try {
+
+        recognition.start();
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+
+function stopRecording() {
+
+    isRecording = false;
+
+
+    if (recognition) {
+
+        try {
+
+            recognition.stop();
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+
+    document
+        .getElementById("micButton")
+        .classList.remove("recording");
+
+
+    document
+        .getElementById("micButton")
+        .innerText = "🎤";
+
+
+    document
+        .getElementById("status")
+        .innerText =
+        "Recording stopped";
+
+
+    stopTimer();
+
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+function startTimer() {
+
+    startTime = Date.now();
+
+    clearInterval(timerInterval);
+
+
+    timerInterval = setInterval(function() {
+
+        let seconds =
+            Math.floor(
+                (Date.now() - startTime) / 1000
+            );
+
+
+        let minutes =
+            Math.floor(seconds / 60);
+
+
+        let remaining =
+            seconds % 60;
+
+
+        document
+            .getElementById("timer")
+            .innerText =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(remaining).padStart(2, "0");
+
+
+    }, 1000);
+
+}
+
+
+function stopTimer() {
+
+    clearInterval(timerInterval);
+
+}
+
+
+/* =========================================
+   ANALYZE SPEAKING
+========================================= */
+
+function analyzeSpeaking() {
+
+    if (isRecording) {
+
+        stopRecording();
+
+    }
+
+
+    let text =
+        document
+            .getElementById("transcript")
+            .value
+            .trim();
+
+
+    if (!text) {
+
+        alert(
+            "Please speak something first."
+        );
+
+        return;
+
+    }
+
+
+    let analysis =
+        calculateAnalysis(text);
+
+
+    showResults(analysis);
+
+}
+
+
+/* =========================================
+   LOCAL ANALYSIS
+========================================= */
+
+function calculateAnalysis(text) {
+
+    let words =
+        text
+            .toLowerCase()
+            .match(/[a-zA-Z]+(?:'[a-zA-Z]+)?/g) || [];
+
+
+    let wordCount = words.length;
+
+
+    let uniqueWords =
+        new Set(words);
+
+
+    let uniqueCount =
+        uniqueWords.size;
+
+
+    let sentences =
+        text
+            .split(/[.!?]+/)
+            .filter(function(sentence) {
+
+                return sentence.trim().length > 0;
+
+            });
+
+
+    let sentenceCount =
+        sentences.length;
+
+
+    let longWords =
+        words.filter(function(word) {
+
+            return word.length >= 7;
+
+        }).length;
+
+
+    let questionWords = [
+        "why",
+        "what",
+        "how",
+        "when",
+        "where",
+        "who"
+    ];
+
+
+    let fillerWords = [
+        "um",
+        "uh",
+        "hmm",
+        "like",
+        "actually",
+        "basically",
+        "you know"
+    ];
+
+
+    let fillerCount = 0;
+
+
+    fillerWords.forEach(function(filler) {
+
+        let regex =
+            new RegExp(
+                "\\b" +
+                filler.replace(" ", "\\s+") +
+                "\\b",
+                "gi"
+            );
+
+
+        let matches =
+            text.match(regex);
+
+
+        if (matches) {
+
+            fillerCount += matches.length;
+
+        }
+
+    });
+
+
+    /* =========================
+       GRAMMAR CHECK
+    ========================= */
+
+    let mistakes = [];
+
+
+    let grammarRules = [
+
+        {
+            regex: /\bi am go\b/gi,
+            wrong: "I am go",
+            correct: "I am going",
+            explanation: "Use 'am + verb-ing' for an action happening now."
+        },
+
+        {
+            regex: /\bi is\b/gi,
+            wrong: "I is",
+            correct: "I am",
+            explanation: "With 'I', use 'am'."
+        },
+
+        {
+            regex: /\bi are\b/gi,
+            wrong: "I are",
+            correct: "I am",
+            explanation: "With 'I', use 'am'."
+        },
+
+        {
+            regex: /\bhe are\b/gi,
+            wrong: "He are",
+            correct: "He is",
+            explanation: "With 'he', use 'is'."
+        },
+
+        {
+            regex: /\bshe are\b/gi,
+            wrong: "She are",
+            correct: "She is",
+            explanation: "With 'she', use 'is'."
+        },
+
+        {
+            regex: /\bhe have\b/gi,
+            wrong: "He have",
+            correct: "He has",
+            explanation: "With 'he', use 'has'."
+        },
+
+        {
+            regex: /\bshe have\b/gi,
+            wrong: "She have",
+            correct: "She has",
+            explanation: "With 'she', use 'has'."
+        },
+
+        {
+            regex: /\bi has\b/gi,
+            wrong: "I has",
+            correct: "I have",
+            explanation: "With 'I', use 'have'."
+        },
+
+        {
+            regex: /\bthey is\b/gi,
+            wrong: "They is",
+            correct: "They are",
+            explanation: "With 'they', use 'are'."
+        },
+
+        {
+            regex: /\bwe is\b/gi,
+            wrong: "We is",
+            correct: "We are",
+            explanation: "With 'we', use 'are'."
+        },
+
+        {
+            regex: /\byesterday i go\b/gi,
+            wrong: "Yesterday I go",
+            correct: "Yesterday I went",
+            explanation: "Use past tense for completed actions in the past."
+        },
+
+        {
+            regex: /\bi didn't went\b/gi,
+            wrong: "I didn't went",
+            correct: "I didn't go",
+            explanation: "After 'didn't', use the base form of the verb."
+        },
+
+        {
+            regex: /\bhe don't\b/gi,
+            wrong: "He don't",
+            correct: "He doesn't",
+            explanation: "With he/she/it, use doesn't."
+        },
+
+        {
+            regex: /\bshe don't\b/gi,
+            wrong: "She don't",
+            correct: "She doesn't",
+            explanation: "With he/she/it, use doesn't."
+        },
+
+        {
+            regex: /\bi doesn't\b/gi,
+            wrong: "I doesn't",
+            correct: "I don't",
+            explanation: "With I, use don't."
+        },
+
+        {
+            regex: /\bmore better\b/gi,
+            wrong: "more better",
+            correct: "better",
+            explanation: "'Better' already expresses comparison."
+        },
+
+        {
+            regex: /\bdiscuss about\b/gi,
+            wrong: "discuss about",
+            correct: "discuss",
+            explanation: "The verb 'discuss' does not normally need 'about'."
+        },
+
+        {
+            regex: /\brevert back\b/gi,
+            wrong: "revert back",
+            correct: "revert",
+            explanation: "'Revert' already means to return."
+        }
+
+    ];
+
+
+    grammarRules.forEach(function(rule) {
+
+        if (rule.regex.test(text)) {
+
+            mistakes.push({
+
+                wrong: rule.wrong,
+
+                correct: rule.correct,
+
+                explanation: rule.explanation
+
+            });
+
+        }
+
+    });
+
+
+    /* =========================
+       GRAMMAR SCORE
+    ========================= */
+
+    let grammarScore = 90;
+
+    grammarScore -= mistakes.length * 8;
+
+
+    if (wordCount < 10) {
+
+        grammarScore -= 10;
+
+    }
+
+
+    grammarScore =
+        Math.max(
+            40,
+            Math.min(100, grammarScore)
+        );
+
+
+    /* =========================
+       VOCABULARY SCORE
+    ========================= */
+
+    let vocabularyRatio =
+        wordCount > 0
+            ? uniqueCount / wordCount
+            : 0;
+
+
+    let vocabularyScore =
+        50 + (vocabularyRatio * 50);
+
+
+    vocabularyScore +=
+        Math.min(longWords * 2, 15);
+
+
+    vocabularyScore =
+        Math.round(
+            Math.max(
+                40,
+                Math.min(100, vocabularyScore)
+            )
+        );
+
+
+    /* =========================
+       FLUENCY SCORE
+    ========================= */
+
+    let fluencyScore = 60;
+
+
+    if (wordCount >= 20) {
+
+        fluencyScore += 10;
+
+    }
+
+    if (wordCount >= 50) {
+
+        fluencyScore += 10;
+
+    }
+
+    if (wordCount >= 80) {
+
+        fluencyScore += 10;
+
+    }
+
+
+    if (fillerCount > 5) {
+
+        fluencyScore -= 10;
+
+    }
+
+
+    if (sentenceCount >= 3) {
+
+        fluencyScore += 5;
+
+    }
+
+
+    fluencyScore =
+        Math.max(
+            40,
+            Math.min(100, fluencyScore)
+        );
+
+
+    /* =========================
+       COMMUNICATION SCORE
+    ========================= */
+
+    let communicationScore = 60;
+
+
+    if (wordCount >= 20) {
+
+        communicationScore += 10;
+
+    }
+
+
+    if (sentenceCount >= 3) {
+
+        communicationScore += 10;
+
+    }
+
+
+    if (uniqueCount >= 20) {
+
+        communicationScore += 10;
+
+    }
+
+
+    if (
+        text.includes(".") ||
+        text.includes("?")
+    ) {
+
+        communicationScore += 5;
+
+    }
+
+
+    communicationScore =
+        Math.max(
+            40,
+            Math.min(100, communicationScore)
+        );
+
+
+    /* =========================
+       OVERALL
+    ========================= */
+
+    let overall =
+        Math.round(
+            (
+                grammarScore +
+                vocabularyScore +
+                fluencyScore +
+                communicationScore
+            ) / 4
+        );
+
+
+    /* =========================
+       VOCABULARY FEEDBACK
+    ========================= */
+
+    let vocabularyFeedback;
+
+
+    if (uniqueCount < 10) {
+
+        vocabularyFeedback =
+            "Try to use more different English words. Avoid repeating the same words.";
+
+    } else if (uniqueCount < 20) {
+
+        vocabularyFeedback =
+            "Your vocabulary is developing. Try adding a few more descriptive and professional words.";
+
+    } else {
+
+        vocabularyFeedback =
+            "Good variety of words. Keep learning new vocabulary and use it naturally.";
+
+    }
+
+
+    /* =========================
+       FLUENCY FEEDBACK
+    ========================= */
+
+    let fluencyFeedback;
+
+
+    if (wordCount < 20) {
+
+        fluencyFeedback =
+            "Your answer is quite short. Try speaking for at least 30 to 60 seconds.";
+
+    } else if (fillerCount > 5) {
+
+        fluencyFeedback =
+            "You used several filler words. Try taking a short pause instead of saying 'um', 'like' or 'actually' repeatedly.";
+
+    } else {
+
+        fluencyFeedback =
+            "Your answer has a reasonable flow. Keep practicing longer answers without unnecessary pauses.";
+
+    }
+
+
+    /* =========================
+       COMMUNICATION FEEDBACK
+    ========================= */
+
+    let communicationFeedback;
+
+
+    if (sentenceCount < 2) {
+
+        communicationFeedback =
+            "Try to organize your answer into multiple sentences with a clear beginning, middle and ending.";
+
+    } else {
+
+        communicationFeedback =
+            "Your answer communicates an understandable idea. Try to give examples and explain your points clearly.";
+
+    }
+
+
+    /* =========================
+       BETTER VERSION
+    ========================= */
+
+    let betterVersion =
+        improveSentence(text);
+
+
+    /* =========================
+       STRENGTHS
+    ========================= */
+
+    let strengths = [];
+
+
+    if (wordCount >= 20) {
+
+        strengths.push(
+            "You gave a detailed answer."
+        );
+
+    }
+
+
+    if (uniqueCount >= 15) {
+
+        strengths.push(
+            "You used a variety of vocabulary."
+        );
+
+    }
+
+
+    if (mistakes.length === 0) {
+
+        strengths.push(
+            "No common grammar mistakes were detected."
+        );
+
+    }
+
+
+    if (sentenceCount >= 3) {
+
+        strengths.push(
+            "You used multiple sentences to express your ideas."
+        );
+
+    }
+
+
+    if (strengths.length === 0) {
+
+        strengths.push(
+            "You started practicing spoken English, which is an important first step."
+        );
+
+    }
+
+
+    /* =========================
+       IMPROVEMENTS
+    ========================= */
+
+    let improvements = [];
+
+
+    if (mistakes.length > 0) {
+
+        improvements.push(
+            "Review the grammar mistakes shown above."
+        );
+
+    }
+
+
+    if (wordCount < 30) {
+
+        improvements.push(
+            "Try to give longer answers."
+        );
+
+    }
+
+
+    if (uniqueCount < 15) {
+
+        improvements.push(
+            "Learn and use more vocabulary."
+        );
+
+    }
+
+
+    if (fillerCount > 5) {
+
+        improvements.push(
+            "Reduce filler words such as 'um', 'like' and 'actually'."
+        );
+
+    }
+
+
+    improvements.push(
+        "Practice speaking English every day."
+    );
+
+
+    /* =========================
+       TIPS
+    ========================= */
+
+    let tips = [
+
+        "Speak slowly and clearly.",
+
+        "Think in English instead of translating every sentence.",
+
+        "Use simple sentences first and gradually make them longer.",
+
+        "Record yourself regularly and compare your progress.",
+
+        "Practice answering interview questions aloud."
+
+    ];
+
+
+    return {
+
+        overall: overall,
+
+        grammar: grammarScore,
+
+        vocabulary: vocabularyScore,
+
+        fluency: fluencyScore,
+
+        communication: communicationScore,
+
+        mistakes: mistakes,
+
+        vocabularyFeedback: vocabularyFeedback,
+
+        fluencyFeedback: fluencyFeedback,
+
+        communicationFeedback: communicationFeedback,
+
+        betterVersion: betterVersion,
+
+        strengths: strengths,
+
+        improvements: improvements,
+
+        tips: tips
+
+    };
+
+}
+
+
+/* =========================================
+   BETTER SENTENCE
+========================================= */
+
+function improveSentence(text) {
+
+    let result = text.trim();
+
+
+    if (!result) {
+
+        return "";
+
+    }
+
+
+    result =
+        result.charAt(0).toUpperCase()
+        + result.slice(1);
+
+
+    result =
+        result.replace(/\bi\b/g, "I");
+
+
+    result =
+        result.replace(
+            /\bi am go\b/gi,
+            "I am going"
+        );
+
+
+    result =
+        result.replace(
+            /\bi is\b/gi,
+            "I am"
+        );
+
+
+    result =
+        result.replace(
+            /\bi are\b/gi,
+            "I am"
+        );
+
+
+    result =
+        result.replace(
+            /\bhe are\b/gi,
+            "He is"
+        );
+
+
+    result =
+        result.replace(
+            /\bshe are\b/gi,
+            "She is"
+        );
+
+
+    result =
+        result.replace(
+            /\bhe have\b/gi,
+            "He has"
+        );
+
+
+    result =
+        result.replace(
+            /\bshe have\b/gi,
+            "She has"
+        );
+
+
+    result =
+        result.replace(
+            /\bi has\b/gi,
+            "I have"
+        );
+
+
+    result =
+        result.replace(
+            /\bthey is\b/gi,
+            "They are"
+        );
+
+
+    result =
+        result.replace(
+            /\bwe is\b/gi,
+            "We are"
+        );
+
+
+    result =
+        result.replace(
+            /\bi didn't went\b/gi,
+            "I didn't go"
+        );
+
+
+    result =
+        result.replace(
+            /\bmore better\b/gi,
+            "better"
+        );
+
+
+    result =
+        result.replace(
+            /\bdiscuss about\b/gi,
+            "discuss"
+        );
+
+
+    if (
+        !/[.!?]$/.test(result)
+    ) {
+
+        result += ".";
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================
+   SHOW RESULTS
+========================================= */
+
+function showResults(data) {
+
+    document
+        .getElementById("overallScore")
+        .innerText =
+        data.overall;
+
+
+    document
+        .getElementById("grammarScore")
+        .innerText =
+        data.grammar;
+
+
+    document
+        .getElementById("vocabularyScore")
+        .innerText =
+        data.vocabulary;
+
+
+    document
+        .getElementById("fluencyScore")
+        .innerText =
+        data.fluency;
+
+
+    document
+        .getElementById("communicationScore")
+        .innerText =
+        data.communication;
+
+
+    /* GRAMMAR */
+
+    let grammarBox =
+        document.getElementById(
+            "grammarMistakes"
+        );
+
+
+    grammarBox.innerHTML = "";
+
+
+    if (data.mistakes.length === 0) {
+
+        grammarBox.innerHTML =
+            "<p>✅ No common grammar mistakes were detected. Great job!</p>";
+
+    } else {
+
+        data.mistakes.forEach(function(item) {
+
+            let div =
+                document.createElement("div");
+
+
+            div.className = "mistake";
+
+
+            div.innerHTML =
+                "❌ <span class='wrong'>"
+                + escapeHTML(item.wrong)
+                + "</span><br>"
+                +
+                "✅ <span class='correct'>"
+                + escapeHTML(item.correct)
+                + "</span><br>"
+                +
+                "💡 "
+                + escapeHTML(item.explanation);
+
+
+            grammarBox.appendChild(div);
+
+        });
+
+    }
+
+
+    document
+        .getElementById("vocabularyFeedback")
+        .innerText =
+        data.vocabularyFeedback;
+
+
+    document
+        .getElementById("fluencyFeedback")
+        .innerText =
+        data.fluencyFeedback;
+
+
+    document
+        .getElementById("communicationFeedback")
+        .innerText =
+        data.communicationFeedback;
+
+
+    document
+        .getElementById("betterVersion")
+        .innerText =
+        data.betterVersion;
+
+
+    fillList(
+        "strengthsList",
+        data.strengths
+    );
+
+
+    fillList(
+        "improvementsList",
+        data.improvements
+    );
+
+
+    fillList(
+        "tipsList",
+        data.tips
+    );
+
+
+    document
+        .getElementById("resultSection")
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById("resultSection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================================
+   LIST
+========================================= */
+
+function fillList(id, items) {
+
+    let list =
+        document.getElementById(id);
+
+
+    list.innerHTML = "";
+
+
+    items.forEach(function(item) {
+
+        let li =
+            document.createElement("li");
+
+
+        li.innerText = item;
+
+
+        list.appendChild(li);
+
+    });
+
+}
+
+
+/* =========================================
+   NEXT TOPIC
+========================================= */
+
+function nextTopic() {
+
+    let select =
+        document.getElementById(
+            "topicSelect"
+        );
+
+
+    if (
+        select.selectedIndex
+        <
+        select.options.length - 1
+    ) {
+
+        select.selectedIndex++;
+
+    } else {
+
+        select.selectedIndex = 0;
+
+    }
+
+
+    updateQuestion();
+
+    clearText();
+
+
+    document
+        .getElementById("resultSection")
+        .style.display =
+        "none";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================
+   TOPIC CHANGE
+========================================= */
+
+document
+    .getElementById("topicSelect")
+    .addEventListener(
+        "change",
+        function() {
+
+            updateQuestion();
+
+            clearText();
+
+            document
+                .getElementById("resultSection")
+                .style.display =
+                "none";
+
+        }
+    );
+
+
+function updateQuestion() {
+
+    document
+        .getElementById("questionText")
+        .innerText =
+        document
+            .getElementById("topicSelect")
+            .value;
+
+}
+
+
+/* =========================================
+   CLEAR
+========================================= */
+
+function clearText() {
+
+    if (isRecording) {
+
+        stopRecording();
+
+    }
+
+
+    document
+        .getElementById("transcript")
+        .value = "";
+
+
+    document
+        .getElementById("timer")
+        .innerText =
+        "00:00";
+
+
+    document
+        .getElementById("status")
+        .innerText =
+        "Microphone is ready";
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(text) {
+
+    let div =
+        document.createElement("div");
+
+
+    div.textContent = text;
+
+
+    return div.innerHTML;
+
+}
+
+</script>
+
+
+</body>
+
+</html>

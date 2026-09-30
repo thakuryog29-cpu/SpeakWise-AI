@@ -1,0 +1,65 @@
+SpeakWise AI - Final Audit Report
+================================
+
+AUDIT SCOPE
+- Security cleanup
+- UI/mobile responsive cleanup
+- Route/button/link static verification
+- Question-bank validation
+- JavaScript syntax verification
+
+RESULTS
+1. Questions: 1,600 valid JSON records loaded from questions.json.
+2. Categories found: Grammar, Vocabulary, Fill in the Blanks, Sentence Correction,
+   Error Detection, Sentence Rearrangement, Word Choice.
+3. Difficulty levels found: Easy, Medium, Hard.
+4. Every question has id, category, difficulty, question, options and answer.
+5. All HTML JavaScript blocks passed Node.js syntax checking.
+6. All template url_for endpoint references point to existing Flask view functions.
+7. Protected pages checked statically:
+   /dashboard
+   /grammar
+   /speaking
+   /mock-tests
+   /vocabulary
+   /interview
+   /grammar-correction
+   API endpoints requiring login were identified in app.py.
+8. Security changes applied:
+   - Removed permanent hard-coded Flask secret key.
+   - Uses SPEAKWISE_SECRET_KEY when supplied; otherwise generates a random local key.
+   - Enabled HttpOnly and SameSite=Lax session cookies.
+   - Secure cookies can be enabled with SPEAKWISE_HTTPS=1.
+   - Disabled Flask debug mode in the shipped app.
+   - Added reasonable input length limits.
+   - Added minimum 6-character registration password.
+   - AI API exceptions are logged server-side instead of exposing raw exception text.
+9. UI/mobile changes:
+   - Added horizontal-overflow protection.
+   - Added responsive safety rules for navigation, media and controls.
+   - Added a dedicated small-screen layout for register.html.
+   - Existing viewport meta tags were retained.
+
+LIMITATION
+A live Flask/browser test could not be executed in this audit environment because Flask is not
+installed in the audit runtime. Therefore this report does NOT claim that the local browser
+server was executed here. The static checks above were run against the supplied ZIP.
+
+LOCAL TESTING BEFORE SUBMISSION
+- Install project dependencies in the same Python environment used for the project.
+- Start app.py.
+- Test register -> login -> dashboard.
+- Test every dashboard card.
+- Test Mock Test start/submit/restart.
+- Test Grammar Practice start/check/next.
+- Test Speaking microphone/start/stop.
+- Test Interview start/answer/submit.
+- Test Vocabulary search/pronunciation/quiz.
+- Test Grammar Correction with and without API key.
+- Test logout and direct access to protected URLs.
+
+SECRET KEY
+For a stable deployment, set:
+SPEAKWISE_SECRET_KEY=<your-long-random-secret>
+If using HTTPS, also set:
+SPEAKWISE_HTTPS=1

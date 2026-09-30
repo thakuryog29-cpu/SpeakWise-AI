@@ -1,0 +1,1132 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mock Tests - SpeakWise AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 34px;
+            color: #333;
+        }
+
+        .page-title p {
+            margin-top: 8px;
+            color: #777;
+        }
+
+        /* SETUP */
+
+        .setup-box {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .setup-box h2 {
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .start-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .start-btn:hover {
+            opacity: 0.9;
+        }
+
+        .question-info {
+            margin-top: 15px;
+            text-align: center;
+            color: #777;
+        }
+
+        /* TEST */
+
+        #testArea {
+            display: none;
+        }
+
+        .test-header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+
+        .progress-text {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .timer {
+            background: #fff1f1;
+            color: #e53935;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .question-card {
+            background: white;
+            padding: 28px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 19px;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            padding: 13px 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #f5f6ff;
+            border-color: #667eea;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #27ae60;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        /* RESULT */
+
+        #resultArea {
+            display: none;
+        }
+
+        .result-card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .result-card h2 {
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 50px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 15px 0;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .result-box {
+            padding: 20px;
+            background: #f6f7ff;
+            border-radius: 12px;
+        }
+
+        .result-box strong {
+            display: block;
+            font-size: 25px;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .restart-btn {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* REVIEW */
+
+        .review-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .review-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .review-item {
+            border: 1px solid #ddd;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .correct {
+            border-left: 5px solid #27ae60;
+        }
+
+        .wrong {
+            border-left: 5px solid #e53935;
+        }
+
+        .review-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .correct-answer {
+            color: #27ae60;
+            margin-top: 7px;
+        }
+
+        .your-answer {
+            color: #e53935;
+            margin-top: 7px;
+        }
+
+        /* LOADING */
+
+        #loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .nav-right {
+                gap: 10px;
+                font-size: 13px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+
+            .test-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+        }
+    
+
+        /* Mobile safety / responsive polish */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img, video, iframe, table {
+            max-width: 100%;
+        }
+
+        button, input, select, textarea {
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .container, .page, .content, .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .navbar, nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links, .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a, .nav-menu a {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+
+            h1 {
+                line-height: 1.2;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="logo">
+        🗣️ SpeakWise AI
+    </div>
+
+    <div class="nav-right">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-title">
+        <h1>📝 Mock Tests</h1>
+        <p>Test your English skills with our question bank.</p>
+    </div>
+
+
+    <!-- SETUP AREA -->
+
+    <div id="setupArea" class="setup-box">
+
+        <h2>⚙️ Test Setup</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <select id="category">
+
+                    <option value="All">All Categories</option>
+
+                    <option value="Grammar">
+                        Grammar
+                    </option>
+
+                    <option value="Vocabulary">
+                        Vocabulary
+                    </option>
+
+                    <option value="Fill in the Blanks">
+                        Fill in the Blanks
+                    </option>
+
+                    <option value="Sentence Correction">
+                        Sentence Correction
+                    </option>
+
+                    <option value="Error Detection">
+                        Error Detection
+                    </option>
+
+                    <option value="Sentence Rearrangement">
+                        Sentence Rearrangement
+                    </option>
+
+                    <option value="Word Choice">
+                        Word Choice
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Difficulty</label>
+
+                <select id="difficulty">
+
+                    <option value="All">All Levels</option>
+
+                    <option value="Easy">
+                        Easy
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Hard">
+                        Hard
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Number of Questions</label>
+
+                <select id="questionCount">
+
+                    <option value="5">5 Questions</option>
+
+                    <option value="10">10 Questions</option>
+
+                    <option value="20">20 Questions</option>
+
+                    <option value="30">30 Questions</option>
+
+                    <option value="50">50 Questions</option>
+
+                    <option value="100">100 Questions</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button class="start-btn" onclick="startTest()">
+            🚀 Start Mock Test
+        </button>
+
+
+        <div class="question-info">
+            Question Bank: <strong id="totalQuestions">Loading...</strong>
+        </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div id="loading">
+        ⏳ Loading questions...
+    </div>
+
+
+    <!-- TEST AREA -->
+
+    <div id="testArea">
+
+        <div class="test-header">
+
+            <div class="progress-text">
+                Question <span id="currentQuestion">1</span>
+                of
+                <span id="totalTestQuestions">10</span>
+            </div>
+
+            <div class="timer">
+                ⏱️ <span id="timer">00:00</span>
+            </div>
+
+        </div>
+
+
+        <div id="questionsContainer"></div>
+
+
+        <button class="submit-btn" onclick="submitTest()">
+            ✅ Submit Test
+        </button>
+
+    </div>
+
+
+    <!-- RESULT AREA -->
+
+    <div id="resultArea">
+
+        <div class="result-card">
+
+            <h2>🎉 Test Completed!</h2>
+
+            <div class="score" id="scoreText">
+                0%
+            </div>
+
+            <div class="result-details">
+
+                <div class="result-box">
+                    <strong id="correctCount">0</strong>
+                    Correct
+                </div>
+
+                <div class="result-box">
+                    <strong id="wrongCount">0</strong>
+                    Wrong
+                </div>
+
+                <div class="result-box">
+                    <strong id="accuracy">0%</strong>
+                    Accuracy
+                </div>
+
+            </div>
+
+
+            <button class="restart-btn" onclick="restartTest()">
+                🔄 Take Another Test
+            </button>
+
+
+            <div class="review-section">
+
+                <h3>📋 Answer Review</h3>
+
+                <div id="reviewContainer"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let allQuestions = [];
+
+let currentQuestions = [];
+
+let timerInterval;
+
+let timeLeft = 0;
+
+let testSubmitted = false;
+
+
+// ========================================
+// LOAD QUESTIONS
+// ========================================
+
+async function loadQuestions() {
+
+    try {
+
+        const response = await fetch("/api/questions");
+
+        if (!response.ok) {
+            throw new Error("Unable to load questions");
+        }
+
+        allQuestions = await response.json();
+
+        document.getElementById("totalQuestions").textContent =
+            allQuestions.length;
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        document.getElementById("totalQuestions").textContent =
+            "Error loading questions";
+
+        alert("Questions load nahi ho paaye. Please restart Flask server.");
+
+    }
+
+}
+
+
+// ========================================
+// SHUFFLE ARRAY
+// ========================================
+
+function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] = [array[j], array[i]];
+
+    }
+
+    return array;
+
+}
+
+
+// ========================================
+// START TEST
+// ========================================
+
+function startTest() {
+
+    if (allQuestions.length === 0) {
+
+        alert("Questions abhi load nahi hue. Thoda wait karke try karein.");
+
+        return;
+
+    }
+
+
+    const category =
+        document.getElementById("category").value;
+
+    const difficulty =
+        document.getElementById("difficulty").value;
+
+    const count =
+        parseInt(
+            document.getElementById("questionCount").value
+        );
+
+
+    let filteredQuestions = allQuestions.filter(function(question) {
+
+        const categoryMatch =
+            category === "All" ||
+            question.category === category;
+
+        const difficultyMatch =
+            difficulty === "All" ||
+            question.difficulty === difficulty;
+
+        return categoryMatch && difficultyMatch;
+
+    });
+
+
+    if (filteredQuestions.length === 0) {
+
+        alert("Is filter ke liye questions available nahi hain.");
+
+        return;
+
+    }
+
+
+    if (filteredQuestions.length < count) {
+
+        alert(
+            "Selected filters mein sirf " +
+            filteredQuestions.length +
+            " questions available hain."
+        );
+
+        return;
+
+    }
+
+
+    filteredQuestions = shuffle(filteredQuestions);
+
+
+    currentQuestions =
+        filteredQuestions.slice(0, count);
+
+
+    document.getElementById("setupArea").style.display = "none";
+
+    document.getElementById("resultArea").style.display = "none";
+
+    document.getElementById("testArea").style.display = "block";
+
+
+    document.getElementById("totalTestQuestions").textContent =
+        currentQuestions.length;
+
+
+    testSubmitted = false;
+
+
+    displayQuestions();
+
+    startTimer(currentQuestions.length);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// ========================================
+// DISPLAY QUESTIONS
+// ========================================
+
+function displayQuestions() {
+
+    const container =
+        document.getElementById("questionsContainer");
+
+    container.innerHTML = "";
+
+
+    currentQuestions.forEach(function(question, index) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "question-card";
+
+
+        const number =
+            document.createElement("div");
+
+        number.className = "question-number";
+
+        number.textContent =
+            "Question " + (index + 1);
+
+
+        const questionText =
+            document.createElement("div");
+
+        questionText.className = "question-text";
+
+        questionText.textContent =
+            question.question;
+
+
+        card.appendChild(number);
+
+        card.appendChild(questionText);
+
+
+        const options =
+            shuffle([...question.options]);
+
+
+        options.forEach(function(option, optionIndex) {
+
+            const label =
+                document.createElement("label");
+
+            label.className = "option";
+
+
+            const radio =
+                document.createElement("input");
+
+            radio.type = "radio";
+
+            radio.name = "question_" + index;
+
+            radio.value = option;
+
+
+            label.appendChild(radio);
+
+            label.appendChild(
+                document.createTextNode(option)
+            );
+
+
+            card.appendChild(label);
+
+        });
+
+
+        container.appendChild(card);
+
+    });
+
+
+    document.getElementById("currentQuestion").textContent = 1;
+
+}
+
+
+// ========================================
+// TIMER
+// ========================================
+
+function startTimer(questionCount) {
+
+    clearInterval(timerInterval);
+
+
+    /*
+        Approximately 1 minute per question.
+        Maximum 100 questions = 100 minutes.
+    */
+
+    timeLeft = questionCount * 60;
+
+
+    updateTimer();
+
+
+    timerInterval = setInterval(function() {
+
+        timeLeft--;
+
+
+        updateTimer();
+
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            alert("⏰ Time is over! Test automatically submitted.");
+
+            submitTest();
+
+        }
+
+    }, 1000);
+
+}
+
+
+// ========================================
+// UPDATE TIMER
+// ========================================
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+
+    document.getElementById("timer").textContent =
+
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+}
+
+
+// ========================================
+// SUBMIT TEST
+// ========================================
+
+function submitTest() {
+
+    if (testSubmitted) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm("Are you sure you want to submit the test?");
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    testSubmitted = true;
+
+    clearInterval(timerInterval);
+
+
+    let correct = 0;
+
+    let wrong = 0;
+
+    let reviewHTML = "";
+
+
+    currentQuestions.forEach(function(question, index) {
+
+        const selected =
+            document.querySelector(
+                'input[name="question_' +
+                index +
+                '"]:checked'
+            );
+
+
+        let userAnswer =
+            selected ? selected.value : "Not Answered";
+
+
+        const isCorrect =
+            userAnswer === question.answer;
+
+
+        if (isCorrect) {
+
+            correct++;
+
+        } else {
+
+            wrong++;
+
+        }
+
+
+        reviewHTML += `
+
+            <div class="review-item ${isCorrect ? "correct" : "wrong"}">
+
+                <div class="review-question">
+                    ${index + 1}. ${escapeHTML(question.question)}
+                </div>
+
+                <div class="your-answer">
+                    Your Answer: ${escapeHTML(userAnswer)}
+                </div>
+
+                <div class="correct-answer">
+                    Correct Answer: ${escapeHTML(question.answer)}
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    const total =
+        currentQuestions.length;
+
+
+    const percentage =
+        Math.round((correct / total) * 100);
+
+
+    document.getElementById("scoreText").textContent =
+        percentage + "%";
+
+
+    document.getElementById("correctCount").textContent =
+        correct;
+
+
+    document.getElementById("wrongCount").textContent =
+        wrong;
+
+
+    document.getElementById("accuracy").textContent =
+        percentage + "%";
+
+
+    document.getElementById("reviewContainer").innerHTML =
+        reviewHTML;
+
+
+    document.getElementById("testArea").style.display =
+        "none";
+
+
+    document.getElementById("resultArea").style.display =
+        "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// ========================================
+// ESCAPE HTML
+// ========================================
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+// ========================================
+// RESTART
+// ========================================
+
+function restartTest() {
+
+    clearInterval(timerInterval);
+
+    testSubmitted = false;
+
+    currentQuestions = [];
+
+
+    document.getElementById("testArea").style.display =
+        "none";
+
+
+    document.getElementById("resultArea").style.display =
+        "none";
+
+
+    document.getElementById("setupArea").style.display =
+        "block";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// ========================================
+// INITIAL LOAD
+// ========================================
+
+loadQuestions();
+
+</script>
+
+</body>
+</html>
+```

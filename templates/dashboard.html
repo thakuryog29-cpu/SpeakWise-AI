@@ -1,0 +1,809 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - SpeakWise AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+            gap: 15px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+
+            padding: 8px 11px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.18);
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+
+            margin: 35px auto;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .stat-icon {
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #667eea;
+        }
+
+        .stat-title {
+            color: #777;
+
+            margin-top: 5px;
+
+            font-size: 14px;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            font-size: 25px;
+
+            margin-bottom: 20px;
+        }
+
+        /* FEATURES */
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .feature-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+
+            transition: 0.3s;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            font-size: 45px;
+
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 21px;
+
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #777;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+
+            min-height: 70px;
+        }
+
+        .feature-btn {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 15px rgba(102,126,234,0.3);
+        }
+
+        /* SPECIAL CARDS */
+
+        .interview-card {
+            border: 2px solid #667eea;
+        }
+
+        .vocabulary-card {
+            border: 2px solid #8b5cf6;
+        }
+
+        .badge {
+            position: absolute;
+
+            top: 15px;
+            right: 15px;
+
+            background: #667eea;
+
+            color: white;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+        .vocabulary-badge {
+            background: #8b5cf6;
+        }
+
+        /* PROGRESS */
+
+        .progress-section {
+            margin-top: 30px;
+
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .progress-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+
+            height: 14px;
+
+            background: #e9e9e9;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 35%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #667eea,
+                    #764ba2
+                );
+
+            border-radius: 20px;
+        }
+
+        .progress-text {
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 40px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:900px) {
+
+            .features {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .features,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .welcome h1 {
+                font-size: 25px;
+            }
+
+        }
+
+    
+
+        /* Mobile safety / responsive polish */
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        img, video, iframe, table {
+            max-width: 100%;
+        }
+
+        button, input, select, textarea {
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .container, .page, .content, .main-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .navbar, nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-links, .nav-menu {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a, .nav-menu a {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+
+            h1 {
+                line-height: 1.2;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        🎤 SpeakWise AI
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('index') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('grammar') }}">
+            Grammar
+        </a>
+
+        <a href="{{ url_for('speaking') }}">
+            Speaking
+        </a>
+
+        <a href="{{ url_for('mock_tests') }}">
+            Mock Tests
+        </a>
+
+        <a href="{{ url_for('interview') }}">
+            Interview
+        </a>
+
+        <a href="{{ url_for('vocabulary') }}">
+            Vocabulary
+        </a>
+
+        <a href="{{ url_for('grammar_correction') }}">
+            AI Correction
+        </a>
+
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <h1>
+            👋 Welcome, {{ name }}!
+        </h1>
+
+        <p>
+            Improve your English, speaking skills,
+            vocabulary and interview confidence
+            with SpeakWise AI.
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div class="stat-number">
+                1600+
+            </div>
+
+            <div class="stat-title">
+                Practice Questions
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💼
+            </div>
+
+            <div class="stat-number">
+                3100+
+            </div>
+
+            <div class="stat-title">
+                Interview Questions
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🧠
+            </div>
+
+            <div class="stat-number">
+                20+
+            </div>
+
+            <div class="stat-title">
+                Vocabulary Words
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FEATURES -->
+
+    <h2 class="section-title">
+        🚀 Learning Features
+    </h2>
+
+
+    <div class="features">
+
+
+        <!-- GRAMMAR -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📖
+            </div>
+
+            <h3>
+                Grammar Practice
+            </h3>
+
+            <p>
+                Practice tenses, articles,
+                prepositions, pronouns,
+                active-passive voice,
+                direct-indirect speech
+                and more.
+            </p>
+
+            <a
+                href="{{ url_for('grammar') }}"
+                class="feature-btn"
+            >
+                Start Grammar
+            </a>
+
+        </div>
+
+
+        <!-- SPEAKING -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎤
+            </div>
+
+            <h3>
+                Speaking Practice
+            </h3>
+
+            <p>
+                Practice speaking with your
+                microphone and improve grammar,
+                vocabulary, fluency and
+                communication.
+            </p>
+
+            <a
+                href="{{ url_for('speaking') }}"
+                class="feature-btn"
+            >
+                Start Speaking
+            </a>
+
+        </div>
+
+
+        <!-- MOCK TEST -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📝
+            </div>
+
+            <h3>
+                Mock Tests
+            </h3>
+
+            <p>
+                Take timed English tests with
+                different categories,
+                difficulties and question counts.
+            </p>
+
+            <a
+                href="{{ url_for('mock_tests') }}"
+                class="feature-btn"
+            >
+                Take Mock Test
+            </a>
+
+        </div>
+
+
+        <!-- INTERVIEW -->
+
+        <div class="feature-card interview-card">
+
+            <span class="badge">
+                3100+
+            </span>
+
+            <div class="feature-icon">
+                💼
+            </div>
+
+            <h3>
+                Interview Preparation
+            </h3>
+
+            <p>
+                Practice HR, Technical, BCA,
+                Fresher, Internship, Behavioral,
+                Communication, Project Viva
+                and Workplace questions.
+            </p>
+
+            <a
+                href="{{ url_for('interview') }}"
+                class="feature-btn"
+            >
+                Start Interview
+            </a>
+
+        </div>
+
+
+        <!-- VOCABULARY -->
+
+        <div class="feature-card vocabulary-card">
+
+            <span class="badge vocabulary-badge">
+                NEW
+            </span>
+
+            <div class="feature-icon">
+                🧠
+            </div>
+
+            <h3>
+                Vocabulary Builder
+            </h3>
+
+            <p>
+                Learn English words with English
+                meaning, Hindi meaning, examples,
+                pronunciation and vocabulary quiz.
+            </p>
+
+            <a
+                href="{{ url_for('vocabulary') }}"
+                class="feature-btn"
+            >
+                Build Vocabulary
+            </a>
+
+        </div>
+
+
+        <!-- AI CORRECTION -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Grammar Correction
+            </h3>
+
+            <p>
+                Enter an English sentence and get
+                correction, explanation, better
+                version and improvement tips.
+            </p>
+
+            <a
+                href="{{ url_for('grammar_correction') }}"
+                class="feature-btn"
+            >
+                Check Grammar
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-section">
+
+        <div class="progress-top">
+
+            <strong>
+                📈 Your Learning Progress
+            </strong>
+
+            <strong>
+                35%
+            </strong>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div class="progress-fill"></div>
+
+        </div>
+
+        <div class="progress-text">
+
+            Keep practicing regularly to improve
+            your English skills.
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    © 2026 SpeakWise AI |
+    BCA Final Year Project
+
+</footer>
+
+
+</body>
+
+</html>
+```
