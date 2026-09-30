@@ -12,7 +12,6 @@ except ImportError:
 
 
 app = Flask(__name__)
-
 # Use an environment secret in real deployments.
 # A temporary random key keeps local development working.
 app.secret_key = os.getenv("SPEAKWISE_SECRET_KEY") or os.urandom(32)
@@ -52,7 +51,7 @@ def init_db():
 
     db.commit()
     db.close()
-
+init_db()
 
 # =========================================================
 # QUESTIONS
